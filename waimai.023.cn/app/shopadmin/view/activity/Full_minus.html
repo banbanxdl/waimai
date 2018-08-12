@@ -1,0 +1,114 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>满减活动</title>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__WEB__/__AJS__/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/Merchant.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/common.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/eachpage.css" />
+    <script type="text/javascript" src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="__WEB__/__AJS__/bootstrap.js"></script>
+
+</head>
+<body>
+
+<div class="container global_body ">
+    <div class="global_head f_orange">
+        <div class="global_title">
+            <span class="f_orange">|</span><a class=" f_orange ">满减活动</a>
+        </div>
+    </div>
+    <div class="global_content bg_white">
+        <form class="layui-form" action="">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"  style="width: 108px">开始时间:</label>
+                <div class="layui-input-block width_250">
+                    <input type="text" name="date" id="startTime"  placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"  style="width: 108px">结束时间:</label>
+                <div class="layui-input-block width_250">
+                    <input type="text" name="date" id="endTime"  placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item full_clone">
+                <label class="layui-form-label" style="width: 108px">满减优惠</label>
+                <div class="full_item">
+                    <span > 满&nbsp;</span>
+                    <div class="layui-input-block " style="margin-left: 0;display: inline-block;width: 68px">
+                        <input type="text" name="username"  autocomplete="off" class="layui-input">
+                    </div>
+                    <span style="margin-right: 20px">&nbsp;元</span>
+                    <span > 减&nbsp;</span>
+                    <div class="layui-input-block " style="margin-left: 0;display: inline-block;width: 68px">
+                        <input type="text" name="username"   autocomplete="off" class="layui-input">
+                    </div>
+                    <span >&nbsp;元</span>
+                    <i class="full_active" style="margin-left: 16px"><img src="__WEB__/__AIMG__/m3.png" alt=""/></i>
+                    <i style="cursor: no-drop"><img src="__WEB__/__AIMG__/m2.png" alt=""/></i>
+                    <i style="display: none;"><img src="__WEB__/__AIMG__/m4.png" alt=""/></i>
+                </div>
+            </div>
+            <div id="cloEnd" class="layui-form-item " pane="" >
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block "  >
+                    <input type="checkbox" name="" lay-skin="primary"  >
+                    <div class="minus_agrren">
+                        <span>已阅读并同意</span>
+                        <a class="f_orange" href="#">商家自营销协议</a>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item add_sub" >
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn bg_orange" >保存</button>
+                    <button  onclick="goback()" type="button" class="layui-btn layui-btn-primary" >返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="__WEB__/__AJS__/layui/layui.all.js"></script>
+<script src="__WEB__/__AJS__/jquery.animsition.min.js"></script>
+<script src="__WEB__/__AJS__/common.js"></script>
+<script>
+$(document).ready(function () {
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //日期
+        laydate.render({
+            elem: '#startTime'
+        });
+        laydate.render({
+            elem: '#endTime'
+        });
+    });
+
+    $('.full_item i').eq(0).on('click', function () {
+        $('.full_item i').eq(1).hide();
+        $('.full_item i').eq(2).show();
+        var clo = $(this).parents('.full_clone').clone(true);
+        clo.find('label').text('');
+        clo.find('input').val('');
+        $('#cloEnd').before(clo[0]);
+    })
+    $('.full_item i').eq(2).on('click', function () {
+        if($('.full_clone').length>2){
+            $(this).parents('.full_clone').remove();
+        }else if($('.full_clone').length==2){
+            $(this).parents('.full_clone').remove();
+            $('.full_item i').eq(2).hide();
+            $('.full_item i').eq(1).show();
+        }
+    })
+})
+</script>
+</body>
+</html>
+
+

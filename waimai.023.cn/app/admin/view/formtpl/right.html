@@ -1,0 +1,14 @@
+<dl class="permission-list">
+    {foreach name="right" item="vo"}
+    <dt>
+        <label>
+            <input type="checkbox" value="{$vo.id}" name="{$val.field}[]" id="{$val.field}"
+                   {if condition = "in_array($vo['id'],$data[$val.field])"}
+                   checked="checked"
+                   {/if}
+            >{$vo.title}
+        </label>
+    </dt>
+
+    {/foreach}
+</dl>

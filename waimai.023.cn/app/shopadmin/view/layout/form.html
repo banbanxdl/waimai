@@ -1,0 +1,81 @@
+{__NOLAYOUT__}
+{extend name="layout/layout"}
+{block name="meta"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>总后台-{$_template_nav|default=""}-{$_template_title|default=""}</title>
+    <link rel="stylesheet" href="__ACSS__/Total_backstage.css" />
+    <link href="/public/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/public/static/admin/lib/layui/css/layui.css" rel="stylesheet" type="text/css" >
+    <link href="/public/static/admin/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+{/block}
+<!--
+            	作者：offline
+            	时间：2018-05-15
+            	描述：内容部分
+            -->
+{// 顶部}
+{block name="top"}
+<div class="bad_order content">
+    <div class="content_con">
+        <!--标题-->
+        <div class="title bad_title">
+            {/*:dump($menu_top_list)*/}
+            <p>
+                {volist name="menu_top_list" id="val"}
+                {if condition="isset($val['iss'])"}
+                <a href="{:url($val['name'],['menu'=>3])}" class="bad_ac">{$val.title}</a>
+                {else /}
+                <a href="{:url($val['name'],['menu'=>3])}">{$val.title}</a>
+                {/if}
+                {/volist}
+            </p>
+        </div>
+
+{/block}
+{// 左边}
+{block name="left"} {/block}
+{// 右边}
+{block name="right"}
+        <!--内容-->
+        <div class="total_con">
+        {include file="layout/search"}
+{/block}
+            {// 内容}
+{block name="content"}
+            <!--内容列表-->
+            <div class="order_table">
+                <div class="order_form">
+
+                    <form id="form-admin-list" action="" method="post" enctype="multipart/form-data">
+                        <div class="peisong1 peisong">
+                            <p>配送费设置</p>
+                            <div class="form_input">
+                                <div class="input_item"><span>基础配送费：</span><span><input type="text" /></span></div>
+                                <div class="input_item"><span>基础配送范围：</span><span><input type="text" /></span></div>
+                                <div class="input_item"><span>超出范围叠加配送费：</span><span><input type="text" /></span></div>
+                                <div class="input_item"><span>超出范围叠加距离：</span><span><input type="text" /></span></div>
+                            </div>
+                        </div>
+
+
+                        <div class="form_sub">
+                            <input type="submit" value="修改" class="submits" />
+                            <input type="reset" value="取消" class="reset"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{/block}
+{block name="footer"}
+{__block__}
+{include file="public/formjs"}
+{/block}

@@ -1,0 +1,32 @@
+{__NOLAYOUT__}
+{include file="Public/_meta"/}
+<title>会员详细信息</title>
+</head>
+<body>
+<div class="container-fluid" style="background-color: #000000">
+    <div class="data-img text-c" style="text-align: center">
+        <img src="{$data}">
+    </div>
+</div>
+
+{include file="Public/_footer"/}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+$(function () {
+    var img =$('img').height();
+    var containerFluid = $('.container-fluid').height();
+    var windowheight = $(window).height();
+    if (img < windowheight){
+        containerFluid = windowheight;
+    }else{
+        containerFluid = img;
+    }
+    $('.data-img').css('line-height',containerFluid+'px');
+});
+</script>
+</body>
+</html>

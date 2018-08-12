@@ -1,0 +1,28 @@
+{__NOLAYOUT__}
+{include file="public/_meta"/}
+
+</head>
+<body>
+
+<!--
+    作者：offline
+    时间：2018-05-09
+    描述：头部
+-->
+{/*加载头部样式*/}
+{include file="public/_header"/}
+
+<!--
+    作者：offline
+    时间：2018-05-09
+    描述：内容部分
+-->
+<div class="index_con">
+    {/*加载左侧菜单*/}
+    {include file="public/_menu"}
+    <div style="padding-left: 12px;box-sizing: border-box;width: 100%;height: 100%;"><iframe class="iframes" src="{:url('index/welcome')}"></iframe></div>
+</div>
+
+{include file="public/_footer"/}
+</body>
+</html>

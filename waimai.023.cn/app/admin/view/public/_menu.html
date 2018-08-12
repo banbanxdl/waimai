@@ -1,0 +1,19 @@
+<aside class="Hui-aside">
+    <div class="menu_dropdown bk_2">
+        {foreach name = "auth_admin_menu" item = "va"}
+        <dl>
+            <dt><i class="Hui-iconfont">&#xe62e;</i> {$va.title}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd>
+                <ul>
+                    {if condition = "isset($va['son'])"}
+                    {foreach name = "$va['son']" item = "con"}
+                    <li><a data-href="{:url($con.name)}" data-title="{$con.title}" href="javascript:void(0)">{$con.title}</a></li>
+                    {/foreach}
+                    {/if}
+                </ul>
+            </dd>
+        </dl>
+        {/foreach}
+    </div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

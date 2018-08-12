@@ -1,0 +1,61 @@
+<div style="height: 300px;width: 90%">
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.4&key=826d22804dbf17e4e3f8d444b129b9e5"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <div id="container"></div>
+    <div class="button-group">
+        <input type="button" class="button" value="删除标记" id="clearMarker"/>
+    </div>
+    <input type="hidden" name="lt_num" id="lt" value="{$data['lt_num']?$data['lt_num']:''}"/>
+    <input type="hidden" name="wt_num" id="wt" value="{$data['wt_num']?$data['wt_num']:''}"/>
+    <script type="text/javascript">
+        var markers = [];
+        var con_lt ;
+        var con_wt ;
+        var lt = document.getElementById('lt').value;
+        var wt = document.getElementById('wt').value;
+        if (lt == 0){
+            con_lt = '106.540668';
+            con_wt = '29.564217';
+        }else {
+            con_lt = lt;
+            con_wt = wt;
+        }
+        //初始化地图对象，加载地图
+        var map = new AMap.Map("container", {
+            resizeEnable: true,
+            center:[con_lt,con_wt]
+        });
+        AMap.event.addDomListener(document.getElementById('clearMarker'), 'click', function() {
+            map.remove(markers);
+            document.getElementById('lt').value = 0.000000;
+            document.getElementById('wt').value = 0.000000;
+            lt = 0.000000;
+            wt = 0.000000;
+        }, false);
+        map.on('click', function(e) {
+
+            if (lt == 0){
+                markers = new AMap.Marker({
+                    position:[e.lnglat.getLng(),e.lnglat.getLat()],
+                });
+                markers.setMap(map);
+                document.getElementById('lt').value = e.lnglat.getLng();
+                document.getElementById('wt').value = e.lnglat.getLat();
+                lt = document.getElementById('lt').value;
+                wt = document.getElementById('wt').value;
+            }
+        });
+
+        function click_show() {
+            if (lt != 0) {
+                markers = new AMap.Marker({
+                    position:[lt,wt]
+                });
+                markers.setMap(map);
+            }
+        }
+        click_show();
+    </script>
+
+</div>

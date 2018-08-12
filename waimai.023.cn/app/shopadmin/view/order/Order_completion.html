@@ -1,0 +1,225 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>订单管理-已完成</title>
+		<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script type="text/javascript" src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+		<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="__WEB__/__ACSS__/heard.css" />
+		<link rel="stylesheet" href="__WEB__/__ACSS__/Merchant.css" />
+	</head>
+	<body>
+		
+			
+			<!--
+            	作者：offline
+            	时间：2018-05-14
+            	描述：订单管理进行中内容部分
+            -->
+            <div class="have_hand">
+            	<div class="havehand_con">
+            		<div class="col-sm-12 col-xs-12 col-md-12 col-lg-12 havehand_title">
+            			<div class="havehand_item1 havehand_item">
+            				<span class="havehend_font">订单类型</span>
+							<a href="{:url('Order/CompletionOrder')}?type=1"><span class="havehen_span1 havehen_span have_active"><i></i>普通订单</span></a>
+							<a href="{:url('Order/CompletionOrder')}?type=2"><span class="havehen_span2 havehen_span "><i></i>预订单</span></a>
+							<a href="{:url('Order/CompletionOrder')}?type=3"><span class="havehen_span3 havehen_span"><i></i>到店自取</span></a>
+            			</div>
+            		</div>
+            		
+            		
+            		<!--订单管理订单内容-->
+            		<div class="havehand_cen col-sm-8 col-xs-8 col-md-8 col-lg-8">
+            			<!--第一部分-->
+						{foreach name="order" item="or"}
+            			<div class="havehand_cen1 havehande_cen">
+            				<!--1-->
+            				<!--<div class="havecen1_title">
+            					<span class="title_font">预订单</span>|<span>建议19:45前送达</span>
+            				</div>-->
+            				<!--2-->
+            				<div class="havecen1_new">
+            					<div class="havenew_name">
+            						<p class="name">{$or.user_name}<span>{$or.phone}</span></p>
+            						<p class="adress">{$or.address}<span><i><img src="__WEB__/__AIMG__/address.png"/></i>{$or.mileage}km</span></p>
+            					</div>
+            					<div class="havenew_cao">
+            						<a href="javascript:;" class="cao_close">评价骑手</a>
+            						<a href="javascript:;" class="cao_tui">联系用户</a>
+            					</div>
+            				</div>
+            				<!--骑手-->
+							{if condition="$or.distribution_info eq 1"}
+							{if condition="$or.dispatch_type eq 1"}
+            				<div class="Rider">
+            					<div class="rider_img">
+            						<img src="{$or.rider_img}" />
+            					</div>
+            					<div class="rider_name">
+            						<p>{$or.rider_name}</p>
+            						<span>{$or.rider_phone}</span>
+            					</div>
+            				</div>
+							{else/}
+							{/if}
+							{else/}
+							{/if}
+            				<!--3-->
+            				<div class="haveshop_new">
+            					<div class="haveshop_news">
+            						<p>商品信息<a href="javascript:;" class="shouqi">收起<i><img src="__WEB__/__AIMG__/shouqi.png"/></i></a></p>
+            						{foreach name="$or.goods" item="go"}
+	            					<div class="haveshop_itmes">
+	            						<span class="haveshop_itme1">{$go.goods_name}</span>
+	            						<span class="haveshop_itme2">￥{$go.sale}</span>
+	            						<span class="haveshop_itme3">x{$go.num}</span>
+	            						<span class="haveshop_itme4">￥{$go.total}</span>
+	            					</div>
+	            					<!--<div class="haveshop_itmes">
+	            						<span class="haveshop_itme1">泡脚牛肉盖饭</span>
+	            						<span class="haveshop_itme2">￥16.00</span>
+	            						<span class="haveshop_itme3">x1</span>
+	            						<span class="haveshop_itme4">￥16.00</span>
+	            					</div>-->
+	            					{/foreach}
+	            					
+	            					
+            					</div>
+
+
+								<p class="subtotal">餐盒费<span>￥{$or.lunch_box_fee}</span></p>
+            					<p class="subtotal">小计<span>￥{$or.total_fee}</span></p>
+								<p class="income">配送费<span>
+									{if condition="$or.distribution_info eq 0"}
+									￥{$or.distribution_fee}
+									{else/}
+									-￥{$or.distribution_fee}
+									{/if}
+									</span></p>
+            					<p class="Service">平台服务费<span>-￥8.00</span></p>
+            					<p class="income">本单预计收入<span>￥40.00</span></p>
+            					<p class="con_prin"><a href="javascript:;" class="Consultation">客服咨询</a><a href="javascript:;" class="Printing">打印订单</a></p>
+            					
+            				</div>
+            				<p class="time_ding">{$or.add_time|date="Y-m-d H:i:s",###} <span>订单号：{$or.order_num}</span></p>
+            			</div>
+						{/foreach}
+            			
+            			
+            			<!--第二部分-->
+            			<!--<div class="havehand_cen1 havehande_cen">
+            				&lt;!&ndash;1&ndash;&gt;
+            				<div class="havecen1_title">
+            					<span class="title_font">预订单</span>|<span>建议19:45前送达</span>
+            				</div>
+            				&lt;!&ndash;2&ndash;&gt;
+            				<div class="havecen1_new">
+            					<div class="havenew_name">
+            						<p class="name">王女士<span>15520640202</span></p>
+            						<p class="adress">石小路165号10楼1室<span><i><img src="__WEB__/__AIMG__/address.png"/></i>1.6km</span></p>
+            					</div>
+            					&lt;!&ndash;<div class="havenew_cao">
+            						<a href="javascript:;" class="cao_close">取消订单</a>
+            						<a href="javascript:;" class="cao_tui">部分退款</a>
+            					</div>&ndash;&gt;
+            				</div>
+            				&lt;!&ndash;骑手&ndash;&gt;
+            				<div class="Rider">
+            					<div class="rider_img">
+            						<img src="__WEB__/__AIMG__/timg.png" />
+            					</div>
+            					<div class="rider_name">
+            						<p>骑手旺旺</p>
+            						<span>15945454544</span>
+            					</div>
+            				</div>
+            				&lt;!&ndash;3&ndash;&gt;
+            				<div class="haveshop_new">
+            					<div class="haveshop_news">
+            						<p>商品信息<a href="javascript:;" class="shouqi">收起<i><img src="__WEB__/__AIMG__/shouqi.png"/></i></a></p>
+            					
+	            					<div class="haveshop_itmes">
+	            						<span class="haveshop_itme1">泡脚牛肉盖饭</span>
+	            						<span class="haveshop_itme2">￥16.00</span>
+	            						<span class="haveshop_itme3">x1</span>
+	            						<span class="haveshop_itme4">￥16.00</span>
+	            					</div>
+	            					<div class="haveshop_itmes">
+	            						<span class="haveshop_itme1">泡脚牛肉盖饭</span>
+	            						<span class="haveshop_itme2">￥16.00</span>
+	            						<span class="haveshop_itme3">x1</span>
+	            						<span class="haveshop_itme4">￥16.00</span>
+	            					</div>
+	            					
+	            					
+	            					
+            					</div>
+            					
+            					
+            					
+            					<p class="subtotal">小计<span>￥48.00</span></p>
+            					<p class="Service">平台服务费<span>-￥8.00</span></p>
+            					<p class="income">本单预计收入<span>￥40.00</span></p>
+            					<p class="con_prin"><a href="javascript:;" class="Consultation">客服咨询</a><a href="javascript:;" class="Printing">打印订单</a></p>
+            					
+            				</div>
+            				<p class="time_ding">2017-12-12 12:21 <span>订单号：1234154648654</span></p>
+            			</div>-->
+            			
+            		</div>
+            		
+            		
+            		
+            		
+            		
+            		<div class="col-sm-4 col-xs-4 col-md-4 col-lg-4 havehan_cen">
+            			<div class="Survey">
+            				<p>今日订单概况</p>
+            				<span class="survey_item"><b>已接订单</b><i>{$todaySurvey.receipt}笔</i></span>
+            				<span class="survey_item"><b>预订单</b><i>{$todaySurvey.preorder}笔</i></span>
+            				<span class="survey_item"><b>退款订单</b><i>{$todaySurvey.refund}笔</i></span>
+            				<span class="survey_item"><b>今日营业额</b><i>{$todaySurvey.turnover}元</i></span>
+            			</div>
+            		</div>
+            		
+            		
+            		
+            		
+            	</div>
+            </div>
+			
+			
+			
+			
+		
+		
+		
+		
+		
+	</body>
+</html>
+<script>
+	$(function(){
+		//点击切换
+		$(".havehand_title .havehand_item").find(".havehen_span").on("click",function(){
+			$(this).addClass("have_active").siblings().removeClass("have_active");
+		})
+		//点击收起放开
+		var fage=true;
+		$(".haveshop_new .haveshop_news p").find(".shouqi").on("click",function(){
+			if(fage==true){
+				$(this).parent().parent().css({"height":"30px","overflow":"hidden"});
+				var a_img="放开<i><img src='__WEB__/__AIMG__/fangchu.png'/></i>"
+				$(this).html(a_img);
+				fage=false;
+			}else{
+				$(this).parent().parent().css({"height":" ","overflow":""});
+				var a_img="收起<i><img src='__WEB__/__AIMG__/shouqi.png'/></i>"
+				$(this).html(a_img);
+				fage=true;
+			}
+		})
+	})
+</script>

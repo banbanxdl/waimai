@@ -1,0 +1,67 @@
+{foreach name = "checkbox[$val.field]" item = "vo"}
+<dl class="permission-list">
+    <dt>
+        <label class="">
+            <input type="checkbox" value="{$vo.id}" name="{$val.field}[]"
+                   {if condition = "isset($data)"}
+                   {if condition = "in_array($vo['id'],$data[$val.field])"}
+                   checked
+                   {/if}
+            {/if}
+            >
+            {$vo.title}
+        </label>
+    </dt>
+    <dd>
+        {if condition = "isset($vo.son)"}
+        {foreach name= "vo['son']" item = "s"}
+        <dl class="permission-list1">
+            <dt>
+                <label class="">
+                    <input type="checkbox" value="{$s.id}" name="{$val.field}[]" {if condition = "isset($data)"}
+                           {if condition = "in_array($s['id'],$data[$val.field])"} checked {/if}{/if}>
+                    {$s.title}
+                </label>
+            </dt>
+            <dd>
+                {if condition = "isset($s.son)"}
+                {foreach name="s['son']" item = "bt"}
+                {if condition="getmaxdim($bt) eq 1"}
+                <label class="">
+                    <input type="checkbox" value="{$bt.id}" name="{$val.field}[]" {if condition = "isset($data)"}
+                           {if condition = "in_array($bt['id'],$data[$val.field])"} checked {/if}{/if}>
+                    {$bt.title}
+                </label>
+                {else /}
+                <dl class="permission-list2">
+                    <dt>
+                        <label class="">
+                            <input type="checkbox" value="{$bt.id}" name="{$val.field}[]" {if condition = "isset($data)"}
+                                   {if condition = "in_array($bt['id'],$data[$val.field])"} checked {/if}{/if}>
+                            {$bt.title}
+                        </label>
+                    </dt>
+                    <dd>
+                        {if condition="isset($bt['son'])"}
+                        {volist name="bt['son']" id="son"}
+                        <label class="">
+                            <input type="checkbox" value="{$son.id}" name="{$val.field}[]" {if condition = "isset($data)"}
+                                   {if condition = "in_array($son['id'],$data[$val.field])"} checked {/if}{/if}/>
+                            {$son.title}
+                        </label>
+                        {/volist}
+                        {/if}
+                    </dd>
+                </dl>
+                {/if}
+                {/foreach}
+                {/if}
+            </dd>
+        </dl>
+        {/foreach}
+        {/if}
+    </dd>
+</dl>
+{/foreach}
+
+

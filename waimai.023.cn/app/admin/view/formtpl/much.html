@@ -1,0 +1,12 @@
+
+{foreach name="$much[$val['field']]" item="vo"}
+<div class="mt-20 cl">
+    <div class="col-sm-6 f-l lh-30 f-16">
+        {$vo['title']}
+    </div>
+    <div class="col-sm-6 f-l">
+        <input type="text" class="input-text" name="{$val['field']}[{$vo['name']}]"
+               value="{:isset($data[$val.field][$vo.name])?$data[$val.field][$vo.name]:''}">
+    </div>
+</div>
+{/foreach}

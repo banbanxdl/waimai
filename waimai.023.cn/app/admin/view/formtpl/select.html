@@ -1,0 +1,19 @@
+<span class="select-box">
+
+    <select class="select" size="1" name="{$val.field}">
+        <option value="" selected>{$val.title}</option>
+        {if condition = "isset($select)"}
+            {foreach name="select[$val.field]" item="vo"}
+                {if condition="!empty($data['id'])"}
+                    {if condition="($vo.id eq $data[$val.field]) AND (!empty($data.id))"}
+                        <option value="{$vo.id}" selected="selected">{$vo.title}</option>
+                    {else/}
+                        <option value="{$vo.id}">{$vo.title}</option>
+                    {/if}
+                {else/}
+                    <option value="{$vo.id}">{$vo.title}</option>
+                {/if}
+            {/foreach}
+        {/if}
+    </select>
+</span>

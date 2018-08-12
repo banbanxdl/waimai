@@ -1,0 +1,330 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>人员管理</title>
+    <link rel="stylesheet" href="/public/static/rider/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/public/static/rider/js/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/public/static/rider/css/common.css" />
+    <link rel="stylesheet" href="/public/static/rider/css/rygl.css"/>
+
+</head>
+<body>
+<div class="container global-body">
+    <div class="global-head">
+        <ol class="global-nav ">
+            <li>
+                <label class="f_black">工作状态</label>
+                <div class="btn-group headbtn" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default <?php if($status == ''){ ?>saixuan<?php } ?>" onclick="setparams('status','');">不限</button>
+                    <button type="button" class="btn btn-default <?php if($status == '1'){ ?>saixuan<?php } ?>" onclick="setparams('status',1);">接单中</button>
+                    <button type="button" class="btn btn-default <?php if($status == '0'){ ?>saixuan<?php } ?>" onclick="setparams('status',0);">休息中</button>
+                </div>
+
+
+            </li>
+            <li>
+                <label class="f_black">外卖权限</label>
+
+                <div class="btn-group headbtn" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default  <?php if($pow_takeaway == ''){ ?>saixuan<?php } ?>" onclick="setparams('pow_takeaway','');">不限</button>
+                    <button type="button" class="btn btn-default  <?php if($pow_takeaway == '1'){ ?>saixuan<?php } ?>"   onclick="setparams('pow_takeaway',1);">有</button>
+                    <button type="button" class="btn btn-default  <?php if($pow_takeaway == '0'){ ?>saixuan<?php } ?>" onclick="setparams('pow_takeaway',0);">无</button>
+                </div>
+            </li>
+            <li>
+                <label class="f_black">跑腿权限</label>
+
+                <div class="btn-group headbtn" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default  <?php if($pow_legs == ''){ ?>saixuan<?php } ?>"  onclick="setparams('pow_legs','');">不限</button>
+                    <button type="button" class="btn btn-default <?php if($pow_legs == '1'){ ?>saixuan<?php } ?>"  onclick="setparams('pow_legs',1);">有</button>
+                    <button type="button" class="btn btn-default <?php if($pow_legs == '0'){ ?>saixuan<?php } ?>"  onclick="setparams('pow_legs',0);">无</button>
+                </div>
+            </li>
+            <li>
+                <label class="f_black">配送等级</label>
+                <select id="grade" class="select_black" onchange="setparams('grade_num',this.value);">
+                    <option value='' <?php if($grade_num == ''){ ?>selected<?php } ?>>不限</option>
+                    <option value="1" <?php if($grade_num == '1'){ ?>selected<?php } ?>>金牌骑手</option>
+                    <option value="2" <?php if($grade_num == '2'){ ?>selected<?php } ?>>银牌骑手</option>
+                    <option value="3" <?php if($grade_num == '3'){ ?>selected<?php } ?>>铜牌骑手</option>
+                </select>
+            </li>
+            <li>
+                <label></label>
+                <button id="fat-btn" class="btn btn-primary bg_orange" data-loading-text="Loading..."
+                        type="button" onclick="query();"> 筛选
+                </button>
+            </li>
+        </ol>
+    </div>
+    <input type="hidden" id="status" value="<?php echo $status;?>"></inputhidden>
+    <input type="hidden" id="pow_takeaway" value="<?php echo $pow_takeaway;?>"></hidden>
+    <input type="hidden" id="pow_legs" value="<?php echo $pow_legs;?>"></hidden>
+    <input type="hidden" id="grade_num" value="<?php echo $grade_num;?>"></hidden>
+    <!--添加骑手-->
+    <div class="global-content">
+        <div class="list">
+            <h3 class="add_btn"><span class="point">+</span>添加骑手</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>头像</td>
+                    <td>所属城市</td>
+                    <td><span>配送员名称<br>手机号/性别/年龄</span></td>
+                    <td>配送员等级</td>
+                    <td>账户余额</td>
+                    <td>添加时间</td>
+                    <td>工作状态</td>
+                    <td>外卖权限</td>
+                    <td>跑腿权限</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody>
+
+                {foreach name="$rlist" item="r"  key="k"}
+                <tr id="rider_{$r.id}">
+                    <td>{$r.id}</td>
+                    <td>
+                        <div class="Head_portrait">
+                            <img src="<?php if($r['img'] != ''){echo $r['img'];}else{ echo '/public/static/rider/img/default.png';} ?>">
+                        </div>
+
+                    </td>
+                    <td>{$r.region_name}</td>
+                    <td><span>
+				    			<p>{$r.name}</p><p>{$r.phone}</p><p>{$r.sex}/{$r.age}</p>
+				    		</span></td>
+                    <td>{$r.describe}</td>
+                    <td>
+                        <button class="btn btn-danger" data-loading-text="Loading..."
+                                type="button"> {$r.money}
+                        </button>
+                    </td>
+                    <td>{$r.add_time}</td>
+                    <td>
+                        <div class="btn-group btn-table" role="group" aria-label="...">
+                            <button id="status-1-{$r.id}" type="button" class="btn  <?php if($r['status'] == 1){ ?>btn_org <?php } ?>">开工</button>
+                            <button id="status-0-{$r.id}" type="button" class="btn    <?php if($r['status'] == 0){ ?>btn_gray <?php } ?>">休息</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group btn-table" role="group" aria-label="...">
+                            <button id="pow_takeaway-1-{$r.id}" type="button" class="btn  <?php if($r['pow_takeaway'] == 1){ ?>btn_org <?php } ?>">NO</button>
+                            <button id="pow_takeaway-0-{$r.id}" type="button" class="btn  <?php if($r['pow_takeaway'] == 0){ ?>btn_gray <?php } ?>">Off</button>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group btn-table" role="group" aria-label="...">
+                            <button id="pow_legs-1-{$r.id}" type="button" class="btn <?php if($r['pow_legs'] == 1){ ?>btn_org <?php } ?>">NO</button>
+                            <button id="pow_legs-0-{$r.id}" type="button" class="btn <?php if($r['pow_legs'] == 0){ ?>btn_gray <?php } ?>">Off</button>
+
+                        </div>
+                    </td>
+                    <td>
+                        <button id="del_{$r.id}" name="del" class="btn del_bth" data-loading-text="Loading..."
+                                type="button"> 删除
+                        </button>
+                    </td>
+
+                </tr>
+                {/foreach}
+
+                </tbody>
+            </table>
+
+        </div>
+        {$rlist->render()}
+    </div>
+    <input id="delurl" name="delurl" type="hidden" value="{$delurl}"/>
+    <input id="statusurl" name="statusurl" type="hidden" value="{$statusurl}"/>
+    <!--遮罩层-->
+    <div class="fix publick_display"></div>
+    <!--添加骑手弹框-->
+    <div class="add publick_display bg_gray">
+        <form action="{$addriderurl}" method="post">
+            <input id="hupImg1" name="hupImg1" type="hidden" value=""/>
+            <input id="hupImg2" name="hupImg2"  type="hidden" value=""/>
+            <input id="hupImg3" name="hupImg3"  type="hidden" value=""/>
+            <input id="hupImg4" name="hupImg4"  type="hidden" value=""/>
+            <input id="hupImg5" name="hupImg5"  type="hidden" value=""/>
+        <div class="close-btn text-right "><span class="point">x</span></div>
+        <div class="panel panel-default" style="margin-bottom: 2px;">
+            <div class="panel-body head_notic">
+                注：凡是在当日18.00前注册的骑手就可在当日完成.............
+            </div>
+        </div>
+
+        <!--上传身份证-->
+        <div class="panel panel-default panel-bt" style="margin-top: 5px;">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="font-weight: bold;">
+                    基本信息
+                </h3>
+            </div>
+            <div class="panel-body " style="margin-top: 5px;">
+                <ol class="margin_auto input_body">
+                    <li>
+                        <label>姓名</label>
+                        <input name="name" type="text" class="" />
+                    </li>
+                    <li>
+                        <label>性别</label>
+                        <input name="sex" type="radio" style="width:100px;" checked="checked" value="男"/>男
+                        <input name="sex" type="radio" style="width:100px;"  value="女"/>女
+                    </li>
+                    <li>
+                        <label>年龄</label>
+                        <input name="age" type="text" class="" />
+                    </li>
+                    <li>
+                        <label>身份证号</label>
+                        <input name="id_card" type="text" class="" />
+                    </li>
+                    <li>
+                        <label>手机号</label>
+                        <input name="phone" type="text" class="" />
+                    </li>
+                    <li>
+                        <label>选择代理区域</label>
+                        <select id="province" name="province" style="width: 115px;margin-left:24px ;">
+                            {foreach name="$province" item="p"  key="k"}
+                            <option value="{$p.id}">{$p.name}</option>
+                            {/foreach}
+                        </select>
+                        <select id='city' name="city"  style="width: 115px;margin-left: 10px;">
+                            {foreach name="$city" item="p"  key="k"}
+                            <option value="{$p.id}">{$p.name}</option>
+                            {/foreach}
+                        </select>
+                        <select id='area' name="area"  style="width: 115px;margin-left: 10px;">
+                            {foreach name="$area" item="p"  key="k"}
+                            <option value="{$p.id}">{$p.name}</option>
+                            {/foreach}
+                        </select>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="font-weight: bold;">
+                    上传手持身份证
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="upload_img">
+                    <h5>手持身份证正面 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <!--上传1-->
+                        <input id="upImg1"  type="button"class="btn btn-default bg_orange" value="点击上传" /><span class="text_notic1" style=" font-size:  16px;"></span>
+                    </h5>
+                    <div id="upload1" class="upimg_box">
+                        <img style="width: 100%;height: 100%;" class="layui-upload-img" id="img1">
+                    </div>
+                </div>
+                <section class="upload_notice">
+                    <p>1、必须为自己的身份证</p>
+                    <p>2、身份证上的信息必须清晰可见</p>
+                    <p>3、手持证件人必须露出额头面部无遮挡</p>
+                </section>
+            </div>
+            <div class="panel-body">
+                <div class="upload_img">
+                    <h5>手持身份证反面 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="upImg2"  type="button"class="btn btn-default bg_orange" value="点击上传" /><span class="text_notic2" style=" font-size:  16px;"></span>
+                    </h5>
+
+                    <div id="upload2" class="upimg_box">
+                        <img style="width: 100%;height: 100%;" class="layui-upload-img" id="img2">
+                    </div>
+                </div>
+                <section class="upload_notice">
+                    <p>1.必须露出国徽</p>
+                </section>
+            </div>
+        </div>
+        <!--上传驾驶证-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="font-weight: bold;">
+                    上传驾驶证
+                </h3>
+            </div>
+            <div class="panel-body" >
+                <div class="upload_img" >
+                    <h5 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        驾驶证 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="upImg3" type="button"class="btn btn-default bg_orange" value="点击上传" /><span class="text_notic3" style=" font-size:  16px;"></span>
+                    </h5>
+                    <div id="upload3" class="upimg_box">
+                        <img style="width: 100%;height: 100%;" class="layui-upload-img" id="img3">
+                    </div>
+                </div>
+                <section class="upload_notice">
+                    <p>1.必须为自己的身份证</p>
+                    <p>1.必须为自己的身份证</p>
+                    <p>1.必须为自己的身份证</p>
+                </section>
+            </div>
+            <div class="panel-body">
+                <div class="upload_img">
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;驾驶证副页
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="upImg4" type="button"class="btn btn-default bg_orange" value="点击上传" /><span class="text_notic4" style=" font-size:  16px;"></span>
+                    </h5>
+                    <div id="upload4" class="upimg_box">
+                        <img style="width: 100%;height: 100%;" class="layui-upload-img" id="img4">
+                    </div>
+                </div>
+                <section class="upload_notice">
+                    <p>1.必须为自己的身份证</p>
+                </section>
+            </div>
+        </div>
+        <!--上传健康证-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="font-weight: bold;">
+                    上传健康证
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="upload_img">
+                    <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;健康证
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="upImg5" type="button"class="btn btn-default bg_orange" value="点击上传" /><span class="text_notic5" style=" font-size:  16px;"></span>
+                    </h5>
+                    <div id="upload5" class="upimg_box">
+                        <img style="width: 100%;height: 100%;" class="layui-upload-img" id="img5">
+                    </div>
+                </div>
+                <section class="upload_notice">
+                    <p>1.必须为自己的身份证</p>
+                    <p>1.必须为自己的身份证</p>
+                    <p>1.必须为自己的身份证</p>
+                </section>
+            </div>
+        </div>
+        <p>
+            <button id="upload" class="btn btn-danger add_close">提交</button>
+            <button id="cancel" class="btn btn-danger add_close2">取消</button>
+        </p>
+        </form>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+<script  type="text/javascript" src="/public/static/rider/js/jquery-2.1.0.js"></script>
+<script  type="text/javascript" src="/public/static/rider/js/bootstrap.js"></script>
+<script type="text/javascript" src="/public/static/rider/js/layui/layui.js"></script>
+<script type="text/javascript" src="/public/static/rider/js/rygl.js"></script>
+
+
+

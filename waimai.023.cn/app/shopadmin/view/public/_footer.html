@@ -1,0 +1,24 @@
+<script type="text/javascript" src="__AJS__/jquery-2.1.0.js" ></script>
+<script src="http://www.jq22.com/jquery/1.4.4/jquery.min.js"></script>
+<script>
+    $(function(){
+        $(".item_con").find("a").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+            $(this).addClass("active").parent().parent().siblings(".index_item").children(".item_con").find("a").removeClass("active");
+            var url=$(this).attr("data-href");
+            $("iframe").attr("src",url);
+        });
+        //console.log();
+        var fage=true;
+        $(".index_title .title_name").click(function () {
+             if(fage==true){
+                 $(this).find('.title_items').css("display","block");
+                 fage=false;
+             }else{
+                 $(this).find('.title_items').css("display","none");
+                 fage=true;
+             }
+        });
+    })
+
+</script>

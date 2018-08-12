@@ -1,0 +1,208 @@
+{__NOLAYOUT__}
+{extend name="layout/layout"}
+{block name="meta"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>总后台-{$_template_nav|default=""}-{$_template_title|default=""}</title>
+    <link rel="stylesheet" href="__ACSS__/Total_backstage.css"/>
+    <link href="/public/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css"/>
+    <link href="/public/static/admin/lib/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="/public/static/admin/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+{/block}
+<!--
+            	作者：offline
+            	时间：2018-05-15
+            	描述：内容部分
+            -->
+{// 顶部}
+{block name="top"}
+<div class="bad_order content">
+    <div class="content_con">
+        <!--标题-->
+        <div class="title bad_title">
+            {/*:dump($menu_top_list)*/}
+            <p>
+                {volist name="menu_top_list" id="val"}
+                {if condition="isset($val['iss'])"}
+                <a href="{:url($val['name'],['menu'=>3])}" class="bad_ac">{$val.title}</a>
+                {else /}
+                <a href="{:url($val['name'],['menu'=>3])}">{$val.title}</a>
+                {/if}
+                {/volist}
+            </p>
+        </div>
+
+{/block}
+{// 左边}
+{block name="left"} {/block}
+{// 右边}
+{block name="right"}
+        <!--内容-->
+        <div class="total_con">
+            {include file="layout/search"}
+{/block}
+{// 内容}
+{block name="content"}
+            <!--内容列表-->
+            <form  action="{$_from_action}" method="post" enctype="multipart/form-data" id="form-list-save">
+            <div class="recharge_con">
+                <p class="recharge_title"><span>基础设置</span></p>
+
+
+                <div class="appset_content">
+                    <div class="appset_items">
+                        <input type="hidden" name="id" value="{$data.id?$data.id:''}">
+                        <div class="appset_item">
+                            <span class="appset_font">平台名称：</span>
+                            <span class="appset_input"><input type="text"/></span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">平台LOGO：</span>
+                            <span class="appset_input"><input type="text"/><b class="file_b"><span>上传图片</span><input
+                                    type="file" accept="image/*"/ class="file_imgs"></b></span>
+                            <div class="img_files">
+                                <!--<span class='img_file'><span ><img src=""/></span><i class='i_close'><img src='../img/close.png'/></i></span>-->
+                            </div>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">平台客服电话：</span>
+                            <span class="appset_input"><input type="text"/></span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">平台模式：</span>
+                            <span class="appset_input">
+                                <div class="radio">
+                                    <input id="item1_01" type="radio" name="item1" value="单店模式">
+                                    <label for="item1_01"></label>
+                                    <span>单店模式</span>
+                                </div>
+                                <div class="radio">
+                                    <input id="item1_02" type="radio" name="item1" value="平台模式" checked>
+                                    <label for="item1_02"></label>
+                                    <span>平台模式</span>
+                                </div>
+                                <br/><br/><i>如果是单店模式，用户点进APP不会显示门店列表，直接进入商家店铺菜单页</i>
+                            </span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">是否跳转到离客户最 近的门店：</span>
+                            <span class="appset_input">
+                                <div class="radio">
+                                    <input id="item2_01" type="radio" name="item2" value="是">
+                                    <label for="item2_01"></label>
+                                    <span>是</span>
+                                </div>
+                                <div class="radio">
+                                    <input id="item2_02" type="radio" name="item2" value="否" checked>
+                                    <label for="item2_02"></label>
+                                    <span>否</span>
+                                </div>
+                                <br/><br/><i>如果开启，用户点进APP将不会显示门店列表，直接进入距离最近的商家店铺菜单页</i>
+                            </span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">默认门店：</span>
+                            <span class="appset_input">
+                                <input type="text"/>
+                                <b class="file_b selects"><span class="caret"></span></b><br/>
+                                <i>当开启单店模式时，选择一个门店作为默认的商家店铺</i>
+                                <ul class="appset_ul">
+                                    <li>德克萨斯牛肉面馆1</li>
+                                    <li>德克萨斯牛肉面馆2</li>
+                                </ul>
+                            </span>
+                        </div>
+
+                        <div class="appset_item">
+                            <span class="appset_font">商家默认排序方式：</span>
+                            <span class="appset_input">
+                                <div class="radio">
+                                    <input id="item3_01" type="radio" name="item3" value="按距离排序">
+                                    <label for="item3_01"></label>
+                                    <span>按距离排序</span>
+                                </div>
+                                <div class="radio">
+                                    <input id="item3_02" type="radio" name="item3" value="按热度排序">
+                                    <label for="item3_02"></label>
+                                    <span>按热度排序</span>
+                                </div>
+                                <div class="radio">
+                                    <input id="item3_03" type="radio" name="item3" value="按销量排序">
+                                    <label for="item3_03"></label>
+                                    <span>按销量排序</span>
+                                </div>
+                                <div class="radio">
+                                    <input id="item3_04" type="radio" name="item3" value="评分排序" checked>
+                                    <label for="item3_04"></label>
+                                    <span>评分排序</span>
+                                </div>
+                                <br/><br/><i class="i_color">热度: 体现在粉丝在点击“搜索”菜单时，系统会按照热度有大到小列出5个商家。</i>
+                            </span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">超出商家配送范围是 否给用户展示：</span>
+                            <span class="appset_input">
+                                <div class="radio">
+                                    <input id="item4_01" type="radio" name="item4" value="是">
+                                    <label for="item4_01"></label>
+                                    <span>是</span>
+                                </div>
+                                <div class="radio">
+                                    <input id="item4_02" type="radio" name="item4" value="否" checked>
+                                    <label for="item4_02"></label>
+                                    <span>否</span>
+                                </div>
+                                <br/><br/><i>注意:此项是根据商家的服务范围与顾客距离商家的距离进行计算的,与平台的服务范围没有关系</i>
+                            </span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">配送端名称：</span>
+                            <span class="appset_input"><input type="text"/><br/><i>设置后此内容将替换前台页面中的配送方名称"盒籽配送"</i></span>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">加载中或默认商家图 片：</span>
+                            <span class="appset_input"><input type="text"/><b class="file_b"><span>上传图片</span><input
+                                    type="file" accept="image/*"/ class="file_imgs"></b></span>
+                            <div class="img_files">
+                                <!--<span class='img_file'><span ><img src=""/></span><i class='i_close'><img src='../img/close.png'/></i></span>-->
+                            </div>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">加载中或默认商品图 片：</span>
+                            <span class="appset_input">
+										<input type="text"/>
+										<b class="file_b">
+											<span>上传图片</span>
+											<input type="file" accept="image/*"/ class="file_imgs">
+										</b>
+									</span>
+                            <div class="img_files">
+                                <!--<span class='img_file'><span ><img src=""/></span><i class='i_close'><img src='../img/close.png'/></i></span>-->
+                            </div>
+                        </div>
+                        <div class="appset_item">
+                            <span class="appset_font">APP端版权设置：</span>
+                            <!--&#10在textarea中换行-->
+                            <span class="appset_input"><textarea
+                                    placeholder="Copyright © 盒籽外卖 版权所有 重庆欣作&#10网络科技有限公司提供技术支持"></textarea></span>
+                        </div>
+                        <div class="setapp"><a class="setapp_a">提交</a></div>
+                    </div>
+                </div>
+            </div>
+            </form>
+
+            <!--分页-->
+            <div id="laypagedata" class="opation"></div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="footer"}
+{__block__}
+{include file="public/listjs"}
+{/block}

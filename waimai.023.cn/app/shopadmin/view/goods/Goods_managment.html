@@ -1,0 +1,591 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商品管理</title>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__WEB__/__ACSS__/Merchant.css" />
+    <link rel="stylesheet" href="__WEB__/__AJS__/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/common.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/eachpage.css" />
+    <style>
+        input:focus{
+            border: 1px solid #ff8600 !important;
+        }
+        input:hover{
+            border: 1px solid #F18B1A !important;
+        }
+    </style>
+</head>
+<body>
+<div class="business">
+    <div class="business_con">
+        <!--头部-->
+        <div class="gm_name">
+            <a class="layui-btn bg_orange" id="addGoods" href="{:url('Goods/addGoods')}?shopid={$menuList[0]['shop_id']}&menu=3">新建商品</a>
+            <button class="layui-btn bg_white bd_orange" id="upImg">上传图片</button>
+        </div>
+        <!--内容部分-->
+        <div class="row magt_20 gm_title">
+            <div class="col-lg-2 ">
+                <div class="gm_title_div">
+                    <span class="gm_span">分类列表</span>
+                    <button class="layui-btn bg_white f_orange bd_orange"  data-toggle="modal"  data-target="#bb">管理分类</button>
+
+                </div>
+                <div class="gm_left">
+                    <ul >
+                        <a href="{:url('Goods/showGoods')}?shopid={$menuList[0]['shop_id']}&menuid=0">
+                            <li class="gm_li" >
+                                <div>
+                                    <span>全部商品</span>
+                                    <span>{$goodsCount}</span>
+                                </div>
+                            </li>
+                        </a>
+                        {foreach name="menuList" item="me"}
+                            <a href="{:url('Goods/showGoods')}?shopid={$menuList[0]['shop_id']}&menuid={$me.id}">
+                                <li class="gm_li" >
+                                    <div>
+                                        <span>{$me.menu_name}</span>
+                                        <span>{$me.goods_count}</span>
+                                    </div>
+                                </li>
+                            </a>
+                        {/foreach}
+                        <!--<li class="gm_li">
+                            <div>
+                                <span>全部商品</span>
+                                <span>150</span>
+                            </div>
+                        </li>
+                        <li class="gm_li">
+                            <div>
+                                <span>全部商品</span>
+                                <span>150</span>
+                            </div>
+                        </li>
+                        <li class="gm_li">
+                            <div>
+                                <span>全部商品</span>
+                                <span>150</span>
+                            </div>
+                        </li>
+                        <li class="gm_li">
+                            <div>
+                                <span>全部商品</span>
+                                <span>150</span>
+                            </div>
+                        </li>-->
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-10 gm_right" >
+                <div class="mg_r_title">
+                    <div>
+                        <a class="gm_span gm_span_active f_orange"  href="{:url('Goods/showGoods')}?shopid={$menuList[0]['shop_id']}&condition=10"><text >全部 &nbsp;({$goodsCount})</text></a>
+                        <span class="ti_cut " >l</span>
+                    </div>
+                    <div>
+                        <a class="gm_span"  href="{:url('Goods/showGoods')}?shopid={$menuList[0]['shop_id']}&condition=0"><text >售卖中 &nbsp;({$no_lower})</text></a>
+                        <span class="ti_cut " >l</span>
+                    </div>
+                    <div>
+                        <a class="gm_span"  href="{:url('Goods/showGoods')}?shopid={$menuList[0]['shop_id']}&condition=1"><text >已下架 &nbsp;({$lower})</text></a>
+                        <span class="ti_cut " >l</span>
+                    </div>
+                    <div>
+                        <a class="gm_span"  href="{:url('Goods/showGoods')}?shopid={$menuList[0]['shop_id']}&condition=2"><text >已售完 &nbsp;({$finish})</text></a>
+                    </div>
+                </div>
+                <div class="mg_r_content">
+                    <div class="layui-form mg_r_title gm_batch" style="border-bottom: 0">
+                        <input type="checkbox" name="write" title="全选本业" lay-skin="primary">
+                    </div>
+                    <div class="btnList">
+                        <button class="ayui-btn layui-btn-primary layui-btn-sm">批量上架</button>
+                        <button class="ayui-btn layui-btn-primary layui-btn-sm">批量下架</button>
+                        <button class="ayui-btn layui-btn-primary layui-btn-sm">批量删除</button>
+                    </div>
+                    <table class="layui-table  tab_magt_0" lay-skin="nob">
+                        <colgroup>
+                            <col width="62">
+                            <col width="400">
+                            <col width="425">
+                            <col>
+                            <col>
+                            <col width="28">
+                        </colgroup>
+                        <thead>
+
+                        </thead>
+                        <tbody class="">
+                        <tr class="tr_l_b0">
+                            {foreach name="goodsList" item="gl"}
+                            <td >
+                                <div class="layui-form ">
+                                    <input type="checkbox" lay-skin="primary">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="media">
+                                    <div class="media-left media-middle">
+                                        <a href="" class="img_75" data-toggle="modal"  data-target="#aa" >
+                                            <img width="100%" height="100%" class="media-object" src="{$gl.goods_img}" alt="...">
+                                        </a>
+                                        <span class="gm_media_p">&nbsp;月售 :&nbsp; {$gl.month_num}</span>
+                                    </div>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            <div class="layui-inline" style="width: 100%">
+                                                <input style="height: 29px;width: 100%" type="text" name=""  autocomplete="off" class="layui-input f_black" value="{$gl.goods_name}" >
+                                            </div>
+                                        </h4>
+                                        <div class="layui-inline gm_media_p" style="margin-right: 20px;">
+                                            <label class="layui-form-label gm_media_label">￥</label>
+                                            <div class="layui-input-inline" >
+                                                <input type="text" name="" value="{$gl.goods_price}" autocomplete="off" class="layui-input" style="height: 22px;width: 50px;color:#000 ">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline gm_media_p">
+                                            <label class="layui-form-label gm_media_label" style="width: 28px">库存</label>
+                                            <div class="layui-input-inline" >
+                                                <input type="text" name="" value="{$gl.stock}" autocomplete="off" class="layui-input" style="height: 22px;width: 50px;color:#000 ">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline gm_media_p ">
+                                            <a href="">&nbsp; 归零 &nbsp;</a>
+                                               <span> | </span>
+                                            <a  href="">&nbsp; 无限 </a>
+                                        </div>
+                                        <div  class="gm_media_p">
+                                            <a style="color: #666" href="">添加/<span style="color: #f28a1b">修改</span>规格</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="layui-inline gm_media_p" style="">
+                                    <label class="layui-form-label gm_media_label gm_label" >标签1</label>
+                                    <div class="layui-input-inline" >
+                                        <input type="text" name="" autocomplete="off" class="layui-input" style="height: 26px;width: 60px;color: #000" value="{$gl.label_one}">
+                                    </div>
+                                </div>
+                                <div class="layui-inline gm_media_p" style="margin-left: 28px">
+                                    <label class="layui-form-label gm_media_label gm_label">标签2</label>
+                                    <div class="layui-input-inline" >
+                                        <input type="text" name=""  autocomplete="off" class="layui-input" style="height: 26px;width: 60px;color: #000" value="{$gl.label_two}">
+                                    </div>
+                                </div>
+                                <div class="layui-inline gm_media_p" style="margin-left: 28px">
+                                    <label class="layui-form-label gm_media_label gm_label">标签3</label>
+                                    <div class="layui-input-inline" >
+                                        <input type="text" name="" autocomplete="off" class="layui-input" style="height: 26px;width: 60px;color: #000" value="{$gl.label_three}">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="layui-inline gm_media_p use_flex">
+                                        <label class="layui-form-label gm_media_label gm_label" >描述</label>
+                                        <div class="layui-input-inline " >
+                                            <input  type="text" name="" value="{$gl.describe}"  autocomplete="off" class="layui-input f_black" style="height: 26px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="layui-inline gm_media_p use_flex">
+                                    <label class="layui-form-label gm_media_label gm_label" style="width: 64px">菜单</label>
+                                    <div class="layui-input-inline " >
+                                        <input  type="text" name="" value="{$gl.menu}"  autocomplete="off" class="layui-input f_black" style="height: 26px;">
+                                    </div>
+                                </div>
+                                <!--<div class="layui-inline gm_media_p">
+                                    <label class="layui-form-label gm_media_label gm_label" >餐盒数</label>
+                                    <div class="layui-input-inline " >
+                                        <input  type="number" name=""   autocomplete="off" class="layui-input f_black" style="width:60px;height: 26px;">
+                                    </div>
+                                </div>-->
+                                <div class="layui-inline gm_media_p">
+                                    <label class="layui-form-label gm_media_label gm_label" >餐盒价</label>
+                                    <div class="layui-input-inline " >
+                                        <input  type="number" name=""   autocomplete="off" class="layui-input f_black" style="width:60px;height: 26px;;color: #000" value="{$gl.lunch_box_price}">
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding-top: 13px;text-align: right">
+                                <div class="gm_edit">
+                                    <!-- layui 2.2.5 新增 -->
+                                    <button class="layui-btn layui-btn-fluid layui-btn-sm tishi"  data-uhreh="{:url('Goods/isLower')}?goodsid={$gl.id}&but_type=1&but_site=3"  style="background-color:#f18c1a ">
+                                    <!--<a class="layui-btn layui-btn-fluid layui-btn-sm tishi" data-toggle="modal"-->
+                                       <!--data-uhreh="{:url('Goods/isLower')}?goodsid={$gl.id}&but_type=1&but_site=3"-->
+                                       <!--data-target="#tishi"  style="background-color:#f18c1a ">-->
+                                        {if condition="$gl.is_lower eq 1"}
+                                        上架
+                                        {else/}
+                                        下架
+                                        {/if}
+                                    </button>
+
+                                    <a href="{:url('Goods/delGoods')}?goodsid={$gl.id}&but_type=1&but_site=2" style="float: left" onclick="if(!confirm('确定要删除该商品吗')){ return false;}">
+                                        <i>
+                                            <img src="__WEB__/__AIMG__/delsm.png" alt="" />
+                                        </i><text>删除</text>
+                                    </a>
+                                    <a href="{:url('Goods/updGoods')}?goodsid={$gl.id}&but_type=1&but_site=2"  class="f_orange">
+                                        <i>
+                                            <img src="__WEB__/__AIMG__/updata.png" alt=""/>
+                                        </i><text>编辑</text>
+                                   </a>
+                                </div>
+
+                            </td>
+                            <td style="border-bottom:0px!important; "></td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="__WEB__/__AJS__/bootstrap.js"></script>
+<script src="__WEB__/__AJS__/layui/layui.all.js"></script>
+<script src="__WEB__/__AJS__/Sortable.js"></script>
+<script src="__WEB__/__AJS__/Goods_managment.js"></script>
+
+
+<!-- 上传图片 -->
+<div class="modal fade" id="aa" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" >
+    <div class="modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: 0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel" style="font-size: 15px">上传图片</h4>
+                <div class="model_a">
+                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab" class="modal_active">图库选择</a>
+                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">本地上传</a>
+                </div>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="modal-body active tab-pane"  role="tabpanel" id="home">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="input-group" style="margin-bottom: 10px">
+                                <input type="text" style="border:1px solid #F18B1A  " class="form-control" placeholder="" aria-describedby="basic-addon2">
+                                <span class="input-group-addon img_search f_white" id="basic-addon2">搜索</span>
+                            </div>
+                            <text>找到关键字为 <i>辣椒饭</i>的图片 <i>66</i>张</text>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 5px">
+                        <div class="col-md-12 img_item" >
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                        </div>
+                        <div class="col-md-12 img_item" >
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                            <div><img src="__WEB__/__AIMG__/timg.png" width="100%" height="100%" alt=""/></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-6 col-md-6 ">
+                            <nav aria-label="...">
+                                <ul class="pagination" style="margin-bottom: 10px">
+                                    <li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                    <li><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div  class="modal-body tab-pane" role="tabpanel" class="" id="profile">
+                    <div class="row" style="overflow:-webkit-paged-y">
+                        <div class="col-md-12">
+                            <div class="layui-form-item" style="text-align: center">
+                                <div class="layui-inline" >
+                                    <div style="display: inline-block"  id="test1">
+                                        <button type="button" class="layui-btn bg_orange up_img_up">选择本地图片</button>
+                                    </div>
+                                    <button type="button" class="layui-btn bg_orange"  id="upImg">上传</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="img_look" style="display: none">
+                                <p style="text-align: center" class="f_orange">图片预览</p><br/>
+                                <div style="margin: 0 auto; width: 600px;height: 450px">
+                                </div>
+                            </div>
+                            <p style="text-align: center">请选择像素大于600*450的图片</p>
+                        </div>
+                        <div class="col-md-12">
+                            <h4 style="color: red ;border-bottom: 1px solid #e5e5e5;line-height: 20px" >图片错误示例</h4>
+                            <div class="err_imgList">
+                                <div>
+                                    <div class="err_img_box">
+                                        <img width="100%" height="100%" src="__WEB__/__AIMG__/sign.png" alt=""/>
+                                    </div>
+                                    <p>直接翻拍菜单</p>
+                                </div>
+                                <div>
+                                    <div class="err_img_box">
+                                        <img width="100%" height="100%" src="__WEB__/__AIMG__/sign.png" alt=""/>
+                                    </div>
+                                    <p>图片模糊</p>
+                                </div>
+                                <div>
+                                    <div class="err_img_box">
+                                        <img width="100%" height="100%" src="__WEB__/__AIMG__/sign.png" alt=""/>
+                                    </div>
+                                    <p>图片翻转变形</p>
+                                </div>
+                                <div>
+                                    <div class="err_img_box">
+                                        <img width="100%" height="100%" src="__WEB__/__AIMG__/sign.png" alt=""/>
+                                    </div>
+                                    <p>图片含有水印、马赛克</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg_orange f_white " data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--管理分类-->
+<div class="modal fade" id="bb" tabindex="-1" role="dialog" aria-labelledby="ab" >
+    <div class="modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="border: 0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ab" style="font-size: 15px">管理分类</h4>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <div class="modal-body active tab-pane "  role="tabpanel"  >
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="input-group" style="margin-bottom: 10px">
+                                <input type="text" style="border:1px solid #F18B1A  " class="form-control" placeholder="" aria-describedby="basic-addon2" >
+                                <span class="input-group-addon img_search f_white" id="add_mangenClass">新建分类</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 5px">
+                        <div class="col-md-12 " >
+                            <div class="goods_mgItem2">
+                                <p>1、可以拖动分类进行排序，点击"+"添加分类描述</p>
+                                <p>2、可通过下拉设置添加删除二级分类</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12  goods_mgItem3" id="goods_mgItem3" >
+                            {foreach name="menuList" item="ml"}
+                            <form class="form-inline" method="post" action="{:url('Goods/addMenu')}?shopid={$menuList[0]['shop_id']}&but_type=1&but_site=3">
+                                <div class="goods_mgItem33">
+                                    <div class="form-group" >
+                                        <label>
+                                            <a href="javascript:;" class="goods_ishow" > + </a>
+                                            <a href="javascript:;" class="goods_ihide" style="display: none"> - </a>
+                                        </label>
+                                        <label>分类名称</label>
+                                        <input class="form-control" value="{$ml.menu_name}" name="menu_name">
+                                        <input value="{$ml.id}" style="display: none" name="menu_id">
+                                        <!--<select class="form-control" >
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>-->
+                                        <!--<label for="exampleInputName2">另外条件1</label>
+                                        <select class="form-control" >
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>-->
+                                    </div>
+                                    <div  class="goods_mgItem333">
+                                        <label>分类描述</label>
+                                        <input class="form-control" value="{$ml.describe}" name="describe">
+                                        <button type="submit" class="btn bg_orange f_white " style="margin-left: 30px;" >保存</button>
+                                        <!--<select class="form-control">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>-->
+                                    </div>
+                                    <!--<div class="modal-footer">
+                                        <button type="button" class="btn bg_orange f_white " data-dismiss="modal">保存</button>
+                                    </div>-->
+                                    <i class="goods_mgItemi">x</i>
+                                </div>
+                            </form>
+                            {/foreach}
+
+                            <!--<div class="goods_mgItem33">
+                                <div class="form-group" >
+                                    <label for="exampleInputName1" >
+                                        <a href="javascript:;" class="goods_ishow" > + </a>
+                                        <a href="javascript:;" class="goods_ihide" style="display: none"> - </a>
+                                    </label>
+                                    <select class="form-control" >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                    <label for="exampleInputName2">另外条件2</label>
+                                    <select class="form-control" >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <div  class="goods_mgItem333">
+                                    <label for="exampleInputEmail1" >分类描述</label>
+                                    <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <i class="goods_mgItemi">x</i>
+                            </div>-->
+                        </div>
+
+                        <form class="form-inline" method="post" action="{:url('Goods/addMenu')}?shopid={$menuList[0]['shop_id']}&but_type=1&but_site=3" id="cloneDiv" hidden>
+                            <div class="goods_mgItem33">
+                                <div class="form-group" >
+                                    <label>
+                                        <a href="javascript:;" class="goods_ishow" > + </a>
+                                        <a href="javascript:;" class="goods_ihide" style="display: none"> - </a>
+                                    </label>
+                                    <label>分类名称</label>
+                                    <input class="form-control" value="" name="menu_name">
+
+                                    <!--<select class="form-control" >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>-->
+                                    <!--<label for="exampleInputName2">另外条件1</label>
+                                    <select class="form-control" >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>-->
+                                </div>
+                                <div  class="goods_mgItem333">
+                                    <label>分类描述</label>
+                                    <input class="form-control" value="" name="describe">
+                                    <button type="submit" class="btn bg_orange f_white " style="margin-left: 30px;" >保存</button>
+                                    <!--<select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>-->
+                                </div>
+                                <!--<div class="modal-footer">
+                                    <button type="button" class="btn bg_orange f_white " data-dismiss="modal">保存</button>
+                                </div>-->
+                                <i class="goods_mgItemi">x</i>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn bg_orange f_white " data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    </div>
+<!--上架-->
+<div class="modal fade bs-example-modal-sm" id="ac" tabindex="-1" role="dialog" aria-labelledby="document">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title f_orange" style="font-size: 15px;">操作提示</h4>
+            </div>
+            <div class="modal-body">
+                <p style="    text-align: center;margin: 16px;font-size: 16px;">
+                    确认上架？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn  bg_orange f_white" >确认</button>
+                <button type="button" class="btn btn-primary"  data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--提示框-->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" id="tishi" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align: left;font-weight: bold">操作提示</h4>
+            </div>
+            <div class="modal-body " style="text-align: center" >
+                是否确认此操作？
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn bg_orange f_white " style="margin-left: 30px;" >确认</a>
+                <button type="button" class="btn btn-primary"  data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

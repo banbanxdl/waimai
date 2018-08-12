@@ -1,0 +1,114 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>账号设置</title>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__WEB__/__AJS__/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/Merchant.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/common.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/eachpage.css" />
+    <script type="text/javascript" src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="__WEB__/__AJS__/bootstrap.js"></script>
+
+</head>
+<body>
+
+<div class="container global_body " >
+<form class="layui-form layui-form-pane" >
+    <div class="global_head ">
+        <div class="global_title">
+            <a >订单提示设置</a>
+        </div>
+        <div class="sys_item1  row margin_auto">
+            <div class="col-lg-1" style="padding-top: 6px;">接受新消息通知:</div>
+            <div class="col-lg-9">
+                <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
+            </div>
+        </div>
+        <div class="sys_item1  row margin_auto">
+            <div class="col-lg-1">消息提示铃声:</div>
+            <div class="col-lg-9 sys_item11">
+                <ul>
+                    <li>接单 <i> <img src="__WEB__/__AIMG__/laba.png" alt=""/></i>
+                        <audio  src="__WEB__/__AIMG__/audio.mp3" controls="controls" loop="false" hidden="true"  ></audio>
+                    </li>
+                    <li>催单 <i> <img src="__WEB__/__AIMG__/laba.png" alt=""/></i>
+                        <audio  src="__WEB__/__AIMG__/audio.mp3" controls="controls" loop="false" hidden="true" ></audio>
+                    </li>
+                    <li>退款 <i> <img src="__WEB__/__AIMG__/laba.png" alt=""/></i>
+                        <audio  src="__WEB__/__AIMG__/audio.mp3" controls="controls" loop="false" hidden="true" ></audio>
+                    </li>
+                    <li>自动接单 <i> <img src="__WEB__/__AIMG__/laba.png" alt=""/></i>
+                        <audio  src="__WEB__/__AIMG__/audio.mp3" controls="controls" loop="false" hidden="true" ></audio>
+                    </li>
+                    <li>预定单到时提醒 <i> <img src="__WEB__/__AIMG__/laba.png" alt=""/></i>
+                        <audio  src="__WEB__/__AIMG__/audio.mp3" controls="controls" loop="false" hidden="true" ></audio>
+                    </li>
+                    <li>配送异常 <i> <img src="__WEB__/__AIMG__/laba.png" alt=""/></i>
+                        <audio  src="__WEB__/__AIMG__img/audio.mp3" controls="controls" loop="false" hidden="true" ></audio>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sys_item1  row margin_auto">
+            <div class="col-lg-1 ">音量大小设置: </div>
+            <div class="col-lg-5 sys_item11" style="margin-left: 12px;position: relative">
+
+                <i class="clr1 bg_orange" id="clr1"></i>
+                <div class="progress" >
+                    <div id="proBar"  class="progress-bar bg_orange" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">B                        <span class="sr-only bg_orange">60% Complete</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="global_head ">
+        <div class="global_title">
+            <a >自动接单设置</a>
+        </div>
+        <div class="sys_item1  row margin_auto">
+            <div class="col-lg-1" style="padding-top: 9px;">接受新消息通知:</div>
+            <div class="col-lg-9">
+                <input type="radio" name="sex" value="男" title="男" checked="">
+                <input type="radio" name="sex" value="女" title="女">
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+<script src="__WEB__/__AJS__/layui/layui.all.js"></script>
+<script src="__WEB__/__AJS__/jquery.animsition.min.js"></script>
+<script>
+$(function () {
+    $('.sys_item11 li audio').each(function () {
+        if($(this)[0].ended){
+            debugger
+        }
+    })
+    $('.sys_item11 li').click(function () {
+        var that = $(this);
+        var player = that.find('audio')[0];
+            if(player.paused){
+                player.play();
+            }else{
+                player.pause();
+            }
+    });
+    var len = $('#proBar').css('width');
+    $('#clr1').css('left',len);
+    $('#clr1').hover(function () {
+        var l = parseInt($(this).css('left'))-1;
+       $(this).css('left',l+'px')
+    }, function () {
+        $(this).css('left',len)
+    });
+})
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,15 @@
+
+{foreach name = "radio[$val.field]" item = "vo" key = "k"}
+<div class="radio-box" style="color: #191dbf">
+    {if condition="isset($data[$val.field])"}
+        {if condition="($vo.id eq $data[$val.field])"}
+        <input name="{$val.field}" type="radio" id="{$val.field}-{$k}" value="{$vo.id}" checked>
+        {else /}
+        <input name="{$val.field}" type="radio" id="{$val.field}-{$k}" value="{$vo.id}">
+        {/if}
+    {else /}
+        <input name="{$val.field}" type="radio" id="{$val.field}-{$k}" value="{$vo.id}">
+    {/if}
+    <label for="{$val.field}-{$k}">{$vo.title}</label>
+</div>
+{/foreach}

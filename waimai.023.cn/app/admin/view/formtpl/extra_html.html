@@ -1,0 +1,11 @@
+{if condition="$_extra_html eq 'js_web'"}
+<script type="text/javascript">
+    alert('额外代码');
+</script>
+{elseif condition="$_extra_html eq 'div'"}
+<div>额外代码</div>
+{elseif condition="$_extra_html eq 'system'"}
+<script type="text/javascript">$(function(){
+    $("#tab-system").Huitab({index:0});});
+</script>
+{/if}

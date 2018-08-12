@@ -1,0 +1,22 @@
+{//meta}
+{block name="meta"}
+{include file="public/_meta"/}
+</head>
+<body>
+{/block}
+{// 顶部}
+{block name="top"} {include file="public/_header"} {/block}
+{// 左边}
+{block name="left"} left {/block}
+{// 右边}
+{block name="right"} right {/block}
+{// 内容}
+{block name="content"} content {/block}
+{// 下边}
+{block name="footer"}
+{include file="public/_footer"}
+{// 额为代码}
+{$extra_html|default=""}
+</body>
+</html>
+{/block}

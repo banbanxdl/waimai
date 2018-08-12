@@ -1,0 +1,232 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录界面</title>
+		<link rel="stylesheet" href="__ACSS__/Total_backstage.css" />
+		<style>
+			.sign_con {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: url(__AIMG__/sign.png) no-repeat;
+				background-size: 100% 100%;
+				position: relative;s
+			}
+			.sign_con .signcon {
+				display: inline-block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				text-align: center;
+			}
+			b, i, span {
+				font-style: normal;
+				font-weight: normal;
+				display: inline-block;
+			}
+			* {
+				padding: 0;
+				margin: 0;
+				font-family: pingfang;
+			}
+			.sign_con .signcon .logo_img {
+				width: 270px;
+				margin: auto;
+			}
+			.sign_con .signcon .sign_center {
+				background: white;
+				width: 500px;
+				padding: 40px 90px;
+				box-sizing: border-box;
+				margin-top: 10px;
+			}
+			form {
+				display: block;
+				margin-top: 0em;
+			}
+			.sign_con .signcon .sign_center form .user_name {
+				width: 100%;
+				position: relative;
+				border-bottom: 1px solid #e5e4e4;
+				margin: 20px;
+			}
+			input {
+				outline: none;
+			}
+			.sign_con .signcon .sign_center form .user_name .cen_img {
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				transform: translateY(-50%);
+				width: 20px;
+			}
+			.sign_con .signcon .sign_center form .user_name input {
+				width: 100%;
+				height: 40px;
+				border: none;
+				padding-left: 45px;
+				box-sizing: border-box;
+				font-size: 16px;
+				color: #333333;
+			}
+			.sign_con .signcon .sign_center form .sign_cation {
+				width: 100%;
+				height: 40px;
+				position: relative;
+				margin: 20px;
+			}
+			.sign_con .signcon .sign_center form .sign_cation .cation {
+				display: inline-block;
+				width: 43%;
+				height: 40px;
+				border: none;
+				border-bottom: 1px solid #e5e4e4;
+				padding-left: 10px;
+				box-sizing: border-box;
+				font-size: 16px;
+				float: left;
+			}
+			.sign_con .signcon .sign_center form .sign_cation .span_cation {
+				display: inline-block;
+				width: 55%;
+				float: right;
+				height: 40px;
+			}
+			.sign_con .signcon .sign_center form .sign_cation .span_cation .cation_img {
+				display: inline-block;
+				width: 100%;
+				float: left;
+				height: 59px;
+				border: 1px solid #F18B1A;
+				font-size: 14px;
+				line-height: 40px;
+				margin-right: 5px;
+			}
+			a {
+				text-decoration: none !important;
+				outline: none !important;
+				box-shadow: none !important;
+			}
+			.sign_con .signcon .sign_center form .sub {
+				width: 100%;
+				height: 40px;
+				position: relative;
+				margin: 20px;
+			}
+			.sign_con .signcon .sign_center form .sub .sub_mit {
+				width: 100%;
+				display: inline-block;
+				height: 40px;
+				outline: none;
+				border: none;
+				border-radius: 3px;
+				background: #F18B1A;
+				color: #fff;
+				font-size: 16px;
+				text-align: center;
+				line-height: 40px;
+			}
+			button {
+				outline: none !important;
+				outline: none !important;
+			}
+			.sign_con .signcon .logo_img {
+				width: 270px;
+				margin: auto;
+			}
+			.sign_con .signcon .logo_img img{
+				width: 100%;
+				hright:100%;
+			}
+			.cation_img img{
+				width:100%;
+				height:100%;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+        	作者：offline
+        	时间：2018-06-04
+        	描述：登录——注册
+        -->
+        <div class="sign_con">
+        	<span class="signcon">
+        		<div class="logo_img">
+        			<img src="__AIMG__/LOGO.png" />
+        		</div>
+        		<div class="sign_center">
+        			<form action="" method="post" enctype="multipart/form-data">
+        				<span class="user_name">
+        					<i class="cen_img">
+        						<img src="__AIMG__/user.png" />
+        					</i>
+        					<input type="text" name="username" placeholder="用户" />
+        				</span>
+        				<span class="user_name">
+        					<i class="cen_img">
+        						<img src="__AIMG__/pwd.png" />
+        					</i>
+        					<input type="password" name="password" placeholder="密码" />
+        				</span>
+        				<span class="sign_cation">
+        					<input type="text"  class="cation" placeholder="验证码" name="cation"/>
+        					<span class="span_cation">
+        						<div class="cation_img">
+        							<img src="{:url('verify')}" onclick="this.src='{:url(\'verify\')}'"/>
+        						</div>
+        						<!--<a href="javascript:;" onclick="imagescation()" class="">看不清换一张</a>-->
+        					</span>
+        					
+        				</span>
+        				<span class="sub">
+        					<button type="button" class="sub_mit">登录</button>
+        				</span>
+        			</form>
+        		</div>
+        	</span>
+        </div>
+		<script type="text/javascript" src="__AJS__/jquery-2.1.0.js" ></script>
+		<script type="text/javascript" src="/public/static/admin/lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript">
+            function imagescation() {
+                var src = "{:url('Login/verify')}";
+                $('#images').attr('src',src);
+            }
+
+			$(function () {
+				$(".sub_mit").on("click",function () {
+					var username=$("input[name=username]").val(),
+						password=$("input[name=password]").val(),
+                    	cation=$("input[name=cation]").val();
+                    $.ajax({
+                        url:"{:url('login/login')}",
+                        type:"post",
+                        dataType:"json",
+						data:{
+						    "username":username,
+							"password":password,
+							"code":cation
+						},
+						success:function (data) {
+                            if(data.code == 1){
+                                layer.msg('操作成功!', {icon: 1, time: 2000}, function () {
+                                    location.href = data.data;
+                                });
+                            }else {
+                                layer.msg(data.msg, {icon: 1, time: 2000});
+                            }
+                        },
+						error:function () {
+                            layer.msg('操作失败', {icon: 1, time: 2000});
+                        },
+
+					})
+                })
+            });
+		</script>
+	</body>
+</html>

@@ -1,0 +1,192 @@
+{__NOLAYOUT__}
+{extend name="layout/layout"}
+{block name="meta"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>总后台-{$_template_nav|default=""}-{$_template_title|default=""}</title>
+    <link rel="stylesheet" href="__ACSS__/Total_backstage.css" />
+    <link href="/public/static/admin/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="/public/static/admin/lib/layui/css/layui.css" rel="stylesheet" type="text/css" >
+    <link href="/public/static/admin/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+{/block}
+<!--
+            	作者：offline
+            	时间：2018-05-15
+            	描述：内容部分
+            -->
+{// 顶部}
+{block name="top"}
+<div class="bad_order content">
+    <div class="content_con">
+        <!--标题-->
+        <div class="title bad_title">
+            {/*:dump($menu_top_list)*/}
+            <p>
+                {volist name="menu_top_list" id="val"}
+                {if condition="isset($val['iss'])"}
+                <a href="{:url($val['name'],['menu'=>3])}" class="bad_ac">{$val.title}</a>
+                {else /}
+                <a href="{:url($val['name'],['menu'=>3])}">{$val.title}</a>
+                {/if}
+                {/volist}
+            </p>
+        </div>
+
+{/block}
+{// 左边}
+{block name="left"} {/block}
+{// 右边}
+{block name="right"}
+        <!--内容-->
+        <div class="total_con">
+            {include file="layout/search"}
+{/block}
+{// 内容}
+{block name="content"}
+            <!--内容列表-->
+            <div class="total_table">
+                <table  cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <td style="width: 62px">选择</td>
+                        {foreach name="_table_title" item="vo"}
+                        <td>{$vo.title}</td>
+                        {/foreach}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {foreach name="$_table_data" item="vo"}
+                    <tr>
+                        <td><input type="checkbox" name="check" value="{$vo.id}" style="left: 35%"/></td>
+                        {foreach name="$_table_title" item="val"}
+                        {if condition="$val.fields eq 'status'"/}
+                        <td>
+                            {eq name="$vo[$val.fields]" value="0"}
+                            <span class="label label-default radius">已禁用</span>
+                            {/eq}
+                            {eq name="$vo[$val.fields]" value="1"}
+                            <span class="label label-success radius">已启用</span>
+                            {/eq}
+                            {eq name="$vo[$val.fields]" value="2"}
+                            <span class="label label-info radius">审核中</span>
+                            {/eq}
+                            {eq name="$vo[$val.fields]" value="3"}
+                            <span class="label label-success radius">已通过</span>
+                            {/eq}
+                            {eq name="$vo[$val.fields]" value="4"}
+                            <span class="label label-warning radius">未通过</span>
+                            {/eq}
+                        </td>
+                        {elseif condition="$val.fields eq 'action'"/}
+                        <td>
+                            {foreach name="$vo[$val.fields]" item="obj" key="k"}
+                            {switch name="$obj.but_type"}
+                            {case value="5"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="save_open('{$obj.title}','{$obj.url}?id={$vo.id}')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {case value="4"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="from_ajax(this,'{$vo.id}','{$obj.title}','{$obj.url}','del','')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {case value="3"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="list_or(this,'{$vo.id}','{$obj.title}','{$obj.url}','{$obj.but_field}')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {case value="2"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="from_ajax(this,'{$vo.id}','{$obj.title}','{$obj.url}','{$vo[$obj.but_field]}',
+                               '{$obj.but_field}')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {default /}
+                            <a title="{$obj.title}" href="{$obj.url}?id={$vo.id}"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white">
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/switch}
+                            {/foreach}
+                        </td>
+                        {elseif condition = "$val.fields eq 'imgurl'"}
+                        <td>
+                            <img src="{$vo[$val.fields]}" width="30px">
+                        </td>
+                        {else/}
+                        <td>{$vo[$val.fields]}</td>
+                        {/if}
+                        {/foreach}
+                    </tr>
+                    {/foreach}
+                    <tr>
+                        <td><input type="checkbox" class="check_all"/>&nbsp;&nbsp;&nbsp;全选</td>
+                        {foreach name="_from_button" item="obj"}
+                        <td>
+                        {switch name="$obj.but_type"}
+                        {case value="5"}
+                        <a title="{$obj.title}" href="javascript:;"
+                           style="text-decoration:none;font-size: 16px;background: {$obj.but_clo};"
+                           onclick="save_open('{$obj.title}','{$obj.url}')" >
+                            <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>{$obj.title}
+                        </a>
+                        {/case}
+                        {case value="4"}
+                        <a title="{$obj.title}" href="javascript:;"
+                           style="text-decoration:none;font-size: 16px;background: {$obj.but_clo};"
+                           onclick="setall(this,'{$obj.title}','{$obj.url}','del','')" >
+                            <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>{$obj.title}
+                        </a>
+                        {/case}
+                        {case value="3"}
+                        <a title="{$obj.title}" href="javascript:;"
+                           style="text-decoration:none;font-size: 16px;background: {$obj.but_clo};"
+                           onclick="setlsitall(this,'{$obj.title}','{$obj.url}','{$obj.but_field}')" >
+                            <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>{$obj.title}
+                        </a>
+                        {/case}
+                        {case value="2"}
+                        <a title="{$obj.title}" href="javascript:;"
+                           style="text-decoration:none;font-size: 16px;background: {$obj.but_clo};"
+                           onclick="setall(this,'{$obj.title}','{$obj.url}','{$obj.but_stat}',
+                               '{$obj.but_field}')" >
+                            <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>{$obj.title}
+                        </a>
+                        {/case}
+                        {default /}
+                        <a title="{$obj.title}" href="{$obj.url}?id={$vo.id}"
+                           style="text-decoration:none;font-size: 16px;background: {$obj.but_clo};">
+                            <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>{$obj.title}
+                        </a>
+                        {/switch}
+                        </td>
+                        {/foreach}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!--分页-->
+            <div id="laypagedata" class="opation"></div>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="footer"}
+{__block__}
+{include file="public/listjs"}
+{/block}

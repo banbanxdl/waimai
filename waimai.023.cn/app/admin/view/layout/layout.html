@@ -1,0 +1,16 @@
+{block name="title"}
+{include file="public/_meta"}
+{/block}
+</head>
+<body>
+{block name="body"}
+{__CONTENT__}
+{/block}
+{block name="footer"}
+{include file="public/_footer"/}
+{include file="public/js"/}
+{/block}
+{$extra_html?$extra_html:''}
+</body>
+</html>
+

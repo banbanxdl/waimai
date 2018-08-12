@@ -1,0 +1,497 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="__WEB__/__AJS__/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/common.css"/>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/eachpage.css"/>
+</head>
+<body  style=" background-color: #f5f5f5">
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<div class="bg_white goods_body" >
+    <div class="add_gds_titel">
+        <span class="f_orange">|</span><h2>修改商品</h2>
+    </div>
+    <div class="add_gds_content">
+        <form class="layui-form" action="" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="sign">*</i>商品分类:</label>
+                <div class="layui-input-block width_250">
+                    <select name="menu_id" lay-filter="aihao">
+                        {foreach name="menu" item="me"}
+                        {if condition="$me.id eq $goods.menu_id"}
+                        <option value="{$me.id}" selected>{$me.menu_name}</option>
+                        {else/}
+                        <option value="{$me.id}">{$me.menu_name}</option>
+                        {/if}
+                        {/foreach}
+                        <!--<option value="1" selected="">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="sign">*</i>商品名称:</label>
+                <div class="layui-input-block width_670">
+                    <input type="text" name="goods_name" value="{$goods.goods_name}" lay-verify="title" autocomplete="off"  class="layui-input ">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="sign">*</i>商品图片:</label>
+
+                <div class="layui-input-block width_250" >
+                    <div class="add_gds_img">
+                        <div class="file">
+                            <input type="file" class="file_img dataimg" id="dons"  accept="image/*" name="goods_img" value="{$goods.goods_img}"/>
+                            <!--<input id="dons"  type="button"class="btn btn-default bg_orange" value="点击上传" />-->
+                            <span class="text_notic1" style=" font-size:  16px;"></span>
+                            <span class="upimg_pre" id="upimg_pre">
+                                  <!--<img class="upimg1 add_img" src="{$goods.goods_img}" id="add_img"/>-->
+                                <!--<img src="{$goods.goods_img}"/>-->
+                            </span>
+                            <input id="hupImg1" name="hupImg1" type="hidden" value=""/>
+                        </div>
+                        <div class="img_file" id="imgs_file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">商品描述:</label>
+                <div class="layui-input-block width_670">
+                    <textarea value="{$goods.describe}" class="layui-textarea" name="describe"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="sign">*</i>商品价格:</label>
+                <div class="layui-input-block width_250">
+                    <input type="text" name="goods_price" lay-verify="required" value="{$goods.goods_price}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="sign">*</i>包装价格:</label>
+                <div class="layui-input-block width_250">
+                    <input type="text" name="lunch_box_price" lay-verify="required" value="{$goods.lunch_box_price}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="sign">*</i>商品库存:</label>
+                <div class="layui-input-block width_250">
+                    <input type="text" name="stock" lay-verify="required" value="{$goods.stock}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!--<div class="layui-form-item">
+                <label class="layui-form-label">验证身份证:</label>
+                <div class="layui-input-block width_670">
+                    <input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>-->
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">商品标签:</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="label_one" value="{$goods.label_one}" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="label_two" value="{$goods.label_two}" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="label_three" value="{$goods.label_three}" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label ">商品规格:</label>
+                {foreach name="norms" item="no"}
+                <div class="layui-input-block clone_div "style="max-width: 960px">
+                    <div class="add_gds_clone">
+                       <h4>规格ID:</h4>
+                       <div class="add_gds_sizeID">
+                           <div>
+                               <label class="layui-form-label "><i class="sign">*</i>规格名称:</label>
+                               <div>
+                                   <input type="text" name="norms" value="{$no.norms}" lay-verify="norms" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <div>
+                               <label class="layui-form-label "><i class="sign">*</i>价格:</label>
+                               <div>
+                                   <input type="text" name="price" value="{$no.price}" lay-verify="price" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <div>
+                               <label class="layui-form-label "><i class="sign">*</i>库存:</label>
+                               <div>
+                                   <input type="text" name="stockTwo" value="{$no.stock}" lay-verify="stock" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <div>
+                               <label class="layui-form-label "><i class="sign">*</i>包装盒价格:</label>
+                               <div>
+                                   <input type="text" name="lunch_box_price" value="{$no.lunch_box_price}" lay-verify="lunch_box_price" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <!--<div>
+                               <label class="layui-form-label "><i class="sign">*</i>包装盒数量:</label>
+                               <div>
+                                   <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>-->
+                       </div>
+                       <div class="add_gds_sizeID">
+                           <div>
+                               <label class="layui-form-label ">UPC码:</label>
+                               <div>
+                                   <input type="text" name="upc_code" value="{$no.upc_code}" lay-verify="title" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <div>
+                               <label class="layui-form-label ">SKU码:</label>
+                               <div>
+                                   <input type="text" name="sku_code" value="{$no.sku_code}" lay-verify="title" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <div>
+                               <label class="layui-form-label ">位置码:</label>
+                               <div>
+                                   <input type="text" name="position_code" value="{$no.position_code}" lay-verify="title" autocomplete="off"  class="layui-input ">
+                               </div>
+                           </div>
+                           <div></div>
+                           <div></div>
+                       </div>
+                       <div class="f_orange"> 收起&nbsp; <img src="__WEB__/__AIMG__/Take.png" alt="" style="margin-top: 4px"/></div>
+                   </div>
+                    <div style="margin-top: 20px">
+                        <button class="layui-btn layui-btn-primary bg_white bd_orange f_orange layui-btn-sm">修改规格</button>
+                    </div>
+                    <!--<input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">-->
+                </div>
+                {/foreach}
+
+                <div class="layui-input-block clone_div "style="max-width: 960px">
+                    <div class="add_gds_clone">
+                        <h4>规格ID:</h4>
+                        <div class="add_gds_sizeID">
+                            <div>
+                                <label class="layui-form-label "><i class="sign">*</i>规格名称:</label>
+                                <div>
+                                    <input type="text" name="norms"  lay-verify="norms" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="layui-form-label "><i class="sign">*</i>价格:</label>
+                                <div>
+                                    <input type="text" name="price"  lay-verify="price" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="layui-form-label "><i class="sign">*</i>库存:</label>
+                                <div>
+                                    <input type="text" name="stockTwo"  lay-verify="stock" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="layui-form-label "><i class="sign">*</i>包装盒价格:</label>
+                                <div>
+                                    <input type="text" name="lunch_box_price"  lay-verify="lunch_box_price" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <!--<div>
+                                <label class="layui-form-label "><i class="sign">*</i>包装盒数量:</label>
+                                <div>
+                                    <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="add_gds_sizeID">
+                            <div>
+                                <label class="layui-form-label ">UPC码:</label>
+                                <div>
+                                    <input type="text" name="upc_code"  lay-verify="title" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="layui-form-label ">SKU码:</label>
+                                <div>
+                                    <input type="text" name="sku_code"  lay-verify="title" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="layui-form-label ">位置码:</label>
+                                <div>
+                                    <input type="text" name="position_code"  lay-verify="title" autocomplete="off"  class="layui-input ">
+                                </div>
+                            </div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="f_orange"> 收起&nbsp; <img src="__WEB__/__AIMG__/Take.png" alt="" style="margin-top: 4px"/></div>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <button class="layui-btn layui-btn-primary bg_white bd_orange f_orange layui-btn-sm">添加规格</button>
+                    </div>
+                    <!--<input type="text" name="identity" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">-->
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">可售时间:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sellTime" value="0" lay-skin="sellTime" lay-filter="radioTest"  title="时间不限" checked="">
+                    <!--<input type="radio" name="sellTime" value="1" lay-fil="sellTime" lay-filter="radioTest" title="自定义时间">-->
+                </div>
+            </div>
+            <!--<div class="layui-form-item sellChang" pane="" >
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block add_gds_padding" style="position: relative">
+                    <div class="item_border">
+                    </div>
+                    <input type="checkbox" name="like1[write]" lay-skin="primary" title="周一" >
+                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="周二">
+                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="周三" >
+                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="周四" >
+                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="周五" >
+                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="周六" >
+                    <input type="checkbox" name="like1[game]" lay-skin="primary" title="周日" >
+                </div>
+
+            </div>-->
+           <!-- <div class="layui-form-item add_gds_padding sellChang">
+                <div class="layui-inline ">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="date1" id="date1" lay-verify="date1" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>-->
+            <div class="layui-form-item add_sub" >
+                <div class="layui-input-block">
+                    <!--<button class="layui-btn bg_orange" lay-submit="" lay-filter="demo1" type="submit">保存并返回</button>-->
+                    <button class="layui-btn bg_orange" lay-submit="" lay-filter="demo1" type="submit" >保存</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button type="button" class="layui-btn layui-btn-primary" onclick="history.go(-1)">取消</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="__WEB__/__AJS__/layui/layui.all.js"></script>
+<script src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+
+<script>
+
+
+$(document).ready(function(){
+    $('.sellChang').hide();
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+
+
+        //自定义验证规则
+        form.verify({
+            required: function(value){
+                if(isNaN(Number(value))){
+                    return '价格/库存请输入数字';
+                }
+            }
+            /*,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,content: function(value){
+                layedit.sync(editIndex);
+            }*/
+        });
+
+
+        form.on('radio(radioTest)', function(data){
+            console.log(data);
+            if(data.value==1){
+                $('.sellChang').show();
+                $('.add_sub').css('margin-top','50px')
+            }else{
+                $('.sellChang').hide();
+                $('.add_sub').css('margin-top','0')
+            }
+        });
+
+        //监听提交
+        /*form.on('submit(demo1)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            });
+            return false;
+        });*/
+
+        //表单初始赋值
+        /*form.val('example', {
+            "username": "贤心" // "name": "value"
+            ,"password": "123456"
+            ,"interest": 1
+            ,"like[write]": true //复选框选中状态
+            ,"close": true //开关状态
+            ,"sex": "女"
+            ,"desc": "我爱 layui"
+        })*/
+    });
+
+    //照片上传
+//
+//    function imgPreview(fileDom,e,ele){
+//        //获取文件
+//        var file = fileDom.files[0];
+//        var supportedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+//        if(!(supportedTypes.indexOf(file.type)>-1)){
+//            alert('请选择.jpg、.png格式图片')
+//            return;
+//        }
+//        var uploadFiles = e.target.files || e.dataTransfer.files;
+//        //console.log(file.type);
+//        var size=uploadFiles.length;
+//        for(var i=0;i<size;i++){
+//            /*读取文件*/
+//            var reader=new FileReader();
+//            reader.readAsDataURL(uploadFiles[i]);
+//            reader.onload=function (e) {
+//                imgBase=e.target.result;
+//                ele.parent().siblings('.img_file').append("<span><img src='"+imgBase+"' /></span>").show()
+//            }
+//        }
+//
+//    }
+//    $('.dataimg').change(function (e) {
+//        imgPreview(this,e,$(this));
+//    })
+
+
+$('#dons').change(function (e) {
+    setImagePreviews()
+});
+var datazheng=[];//上传图片：
+function setImagePreviews(avalue) {
+    //获取选择图片的对象
+    var docObj = document.getElementById("dons");
+    //后期显示图片区域的对象
+    var dd = document.getElementById("imgs_file");
+    // 前期提示上传图片的标准
+    var span = docObj.nextElementSibling;
+    dd.innerHTML = "";
+    //得到所有的图片文件
+    var fileList = docObj.files;
+    //循环遍历
+    for (var i = 0; i < fileList.length; i++) {
+
+        //动态添加html元素
+        dd.innerHTML += " <span><img id='img" + i + "'  /></span>";
+        //获取图片imgi的对象
+        var imgObjPreview = document.getElementById("img"+i);
+
+        if (docObj.files && docObj.files[i]) {
+            //火狐下，直接设img属性
+            imgObjPreview.style.display = 'block';
+            imgObjPreview.style.width = '100%';
+            imgObjPreview.style.height = '100%';
+            //imgObjPreview.src = docObj.files[0].getAsDataURL();
+            //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要以下方式
+            imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);   //获取上传图片文件的物理路径
+            datazheng.push(window.URL.createObjectURL(docObj.files[i]));
+            console.log('aaaaa',datazheng)
+            span.style.display = 'none';
+        }
+        else {
+            //IE下，使用滤镜
+            docObj.select();
+            var imgSrc = document.selection.createRange().text;
+            //alert(imgSrc)
+            var localImagId = document.getElementById("img" + i);
+            //必须设置初始大小
+            localImagId.style.width = "100%";
+            localImagId.style.height = "100%";
+            //图片异常的捕捉，防止用户修改后缀来伪造图片
+            try {
+                localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+            }
+            catch (e) {
+                alert("您上传的图片格式不正确，请重新选择!");
+                return false;
+            }
+            imgObjPreview.style.display = 'none';
+            document.selection.empty();
+        }
+    }
+    return true;
+}
+
+});
+
+layui.use('upload', function(){
+    var $ = layui.jquery
+        ,upload = layui.upload;
+    //身份证正面图片上传
+    var uploadInst = upload.render({
+        elem: '#upimg_pre',
+        auto: false,
+        bindAction: '#dons',
+        accept: 'images',
+        url:'/api/Aliupload/upload/',
+        size: 500,//最大允许上传的文件大小
+        choose: function(obj){
+            //预读本地文件示例，不支持ie8
+            obj.preview(function(index, file, result){
+                $('#add_img').attr('src', result); //图片链接（base64）
+                $('#dons').removeAttr('disabled');
+                $('.text_notic1').html("");
+            });
+        }
+        ,done: function(res){
+            //如果上传失败
+            console.log(res);
+            if(res.code != 200){
+                return layer.msg('上传失败');
+            }
+            $('#add_img').attr('src', 'http://'+res.data.filename); //图片链接（base64）
+            //上传成功
+            $('.text_notic1').html("上传成功");
+            $('#dons').attr('disabled',"true");
+            $('#hupImg1').val('http://'+res.data.filename);
+        }
+        ,error: function(){
+            //演示失败状态，并实现重传
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
+        }
+    });
+
+});
+</script>
+</body>
+</html>

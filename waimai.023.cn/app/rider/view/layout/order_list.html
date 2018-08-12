@@ -1,0 +1,76 @@
+{__NOLAYOUT__}
+{extend name="layout/list"}
+<!--
+            	作者：offline
+            	时间：2018-05-15
+            	描述：内容部分
+            -->
+{// 内容}
+{block name="content"}
+            <!--内容列表-->
+            <div class="order_table">
+
+                <div class="order_items">
+                    {foreach name="$_table_data" item="vo"}
+                    <div class="order_item">
+                        <p class="order_name">{$vo.shop_id}</p>
+                        <span class="order_Contact span_b"><b>联系方式：</b>{$vo.address_username} <i>#156</i></span>
+                        <span class="order_adress span_b"><b>配送地址：</b>{$vo.address_id}</span>
+                        <span class="order_time span_b"><b>预计送达时间：</b><i>{$vo.pre_delivery_time}</i></span>
+                        <span class="order_state span_b"><b>订单状态：</b><i>{$vo.status}</i></span>
+
+                        <div class="order_price">
+                            <span>￥{$vo.total_fee}</span>
+                            <!--<a href="javascript:;">查看详情</a>-->
+                            {if condition="isset($vo['action'])"}
+                            {foreach name="$vo.action" item="obj" key="k"}
+                            {switch name="$obj.but_type"}
+                            {case value="5"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="save_open('{$obj.title}','{$obj.url}?id={$vo.id}')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {case value="4"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="from_ajax(this,'{$vo.id}','{$obj.title}','{$obj.url}','del','')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {case value="3"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="list_or(this,'{$vo.id}','{$obj.title}','{$obj.url}','{$obj.but_field}')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {case value="2"}
+                            <a title="{$obj.title}" href="javascript:;"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white"
+                               onclick="from_ajax(this,'{$vo.id}','{$obj.title}','{$obj.url}','{$vo[$obj.but_field]}',
+                               '{$obj.but_field}')" >
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/case}
+                            {default /}
+                            <a title="{$obj.title}" href="{$obj.url}?id={$vo.id}"
+                               style="text-decoration:none;font-size: 20px;color: {$obj.but_clo};background: white">
+                                <i class="Hui-iconfont Hui-iconfont-{$obj.but_ico}"></i>
+                            </a>
+                            {/switch}
+                            {/foreach}
+                            {/if}
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+
+            </div>
+            <!--分页-->
+            <div id="laypagedata" class="opation"></div>
+        </div>
+    </div>
+</div>
+{/block}

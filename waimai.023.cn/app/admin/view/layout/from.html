@@ -1,0 +1,59 @@
+<article class="page-container">
+    <form  action="{$_from_action}" method="post" class="form form-horizontal" enctype="multipart/form-data" id="form-admin-save">
+        <input type="hidden" name="id" value="{$data.id?$data.id:''}">
+        {foreach name="_table_data" item="val" key="k"}
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">
+                {if condition = "$val['red'] eq 1"}
+                <span class="c-red">*</span>
+                {/if}
+                {$val.title}
+            </label>
+            <div class="formControls col-xs-8 col-sm-9">
+            {if condition = "$val['name'] eq 'file'"}
+                {include file="formtpl/file" content="$val"/}
+            {elseif condition = "$val['name'] eq 'password'"/}
+                {include file="formtpl/password" content="$val"/}
+            {elseif condition = "$val['name'] eq 'textarea'"/}
+                {include file="formtpl/textarea" content="$val"/}
+            {elseif condition = "$val['name'] eq 'select'"/}
+                {include file="formtpl/select" content="$val"/}
+            {elseif condition = "$val['name'] eq 'radio'"/}
+                {include file="formtpl/radio" content="$val"/}
+            {elseif condition = "$val['name'] eq 'checkbox'"/}
+                {include file="formtpl/checkbox" content="$val"/}
+            {elseif condition = "$val['name'] eq 'uploads'"/}
+                {include file="formtpl/uploads" content="$val"/}
+            {elseif condition = "$val['name'] eq 'right'"/}
+                {include file="formtpl/right" content="$val"/}
+            {elseif condition = "$val['name'] eq 'map_con'"/}
+                {include file="formtpl/map_con" content="$val"/}
+            {elseif condition = "$val['name'] eq 'images'"/}
+                {include file="formtpl/images" content="$val"/}
+            {elseif condition = "$val['name'] eq 'p'"/}
+                {include file="formtpl/p" content="$val"/}
+            {elseif condition = "$val['name'] eq 'news'"/}
+                {include file="formtpl/news" content="$val"/}
+            {elseif condition = "$val['name'] eq 'much'"/}
+                {include file="formtpl/much" content="$val"/}
+            {elseif condition = "$val['name'] eq 'hidden'"/}
+                {include file="formtpl/hidden" content="$val"/}
+            {elseif condition = "$val['name'] eq 'pint'"/}
+                {include file="formtpl/pint" content="$val"/}
+            {elseif condition = "$val['name'] eq 'img'"/}
+                {include file="formtpl/img" content="$val"/}
+            {elseif condition = "$val['name'] eq 'inputcolour'"/}
+                {include file="formtpl/inputcolour" content="$val"/}
+            {else/}
+                {include file="formtpl/input" content="$val"/}
+            {/if}
+            </div>
+        </div>
+        {/foreach}
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>

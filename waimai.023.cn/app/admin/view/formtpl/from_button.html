@@ -1,0 +1,7 @@
+<span class="l">
+    {foreach name="_from_button" item="vo"}
+    <a href="javascript:;" onclick="save_open('{$vo.menu_title}','{$vo.from_url}')" class="btn btn-primary radius">
+        <i class="Hui-iconfont Hui-iconfont-{$vo.ico}"></i> {$vo.menu_title}
+    </a>
+    {/foreach}
+</span>

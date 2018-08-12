@@ -1,0 +1,91 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录界面</title>
+		<link rel="stylesheet" href="__ACSS__/Total_backstage.css" />
+	</head>
+	<body>
+		<!--
+        	作者：offline
+        	时间：2018-06-04
+        	描述：登录——注册
+        -->
+		        <div class="sign_con">
+        	<span class="signcon">
+        		<div class="logo_img">
+        			<img src="__AIMG__/LOGO.png" />
+        		</div>
+        		<div class="sign_center">
+        			<form action="" method="post" enctype="multipart/form-data">
+        				<span class="user_name">
+        					<i class="cen_img">
+        						<img src="__AIMG__/user.png" />
+        					</i>
+        					<input type="text" name="username" placeholder="用户" />
+        				</span>
+        				<span class="user_name">
+        					<i class="cen_img">
+        						<img src="__AIMG__/pwd.png" />
+        					</i>
+        					<input type="password" name="password" placeholder="密码" />
+        				</span>
+        				<span class="sign_cation">
+        					<input type="text"  class="cation" placeholder="验证码" name="cation"/>
+        					<span class="span_cation">
+        						<div class="cation_img">
+        							<img src="{:url('verify')}" onclick="this.src='{:url(\'verify\')}'"/>
+        						</div>
+        						<a href="javascript:;" onclick="imagescation()" class="">看不清换一张</a>
+        					</span>
+        					
+        				</span>
+        				<span class="sub">
+        					<button type="button" class="sub_mit">登录</button>
+        				</span>
+        			</form>
+        		</div>
+        	</span>
+        </div>
+		<script type="text/javascript" src="__AJS__/jquery-2.1.0.js" ></script>
+		<script type="text/javascript" src="/public/static/admin/lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript">
+            function imagescation() {
+                var src = "{:url('Login/verify')}";
+                $('#images').attr('src',src);
+            }
+
+			$(function () {
+				$(".sub_mit").on("click",function () {
+					var username=$("input[name=username]").val(),
+						password=$("input[name=password]").val(),
+                    	cation=$("input[name=cation]").val();
+                    $.ajax({
+                        url:"{:url('login/login')}",
+                        type:"post",
+                        dataType:"json",
+						data:{
+						    "username":username,
+							"password":password,
+							"code":cation
+						},
+						success:function (data) {
+                            if(data.code == 1){
+                                layer.msg('操作成功!', {icon: 1, time: 2000}, function () {
+                                    location.href = data.data;
+                                });
+                            }else {
+                                layer.msg(data.msg, {icon: 1, time: 2000});
+                            }
+                        },
+						error:function () {
+                            layer.msg('操作失败', {icon: 1, time: 2000});
+                        },
+
+					})
+                })
+            });
+		</script>
+	</body>
+</html>

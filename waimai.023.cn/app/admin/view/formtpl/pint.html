@@ -1,0 +1,4 @@
+<p>
+    {:isset($data[$val.field])?$data[$val.field]:''}
+</p>
+<input type="hidden" name="{$val.field}" value="{:isset($data[$val.field])?$data[$val.field]:''}">

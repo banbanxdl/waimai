@@ -1,0 +1,1398 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>门店管理</title>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__WEB__/__ACSS__/Merchant.css" />
+    <link rel="stylesheet" href="__WEB__/__AJS__/layui/css/layui.css"/>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/common.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/eachpage.css" />
+    <!--地图-->
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <script src="https://webapi.amap.com/maps?v=1.4.8&key=您申请的key值&plugin=AMap.PolyEditor,AMap.CircleEditor"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+
+
+</head>
+<body>
+
+<div class="business">
+    <div class="business_con">
+        <!--头部-->
+        <div class="business_title">
+            <a href="#s1" class=" modal_active" aria-controls="busNew" role="tab" data-toggle="tab">业务消息</a>
+            <a href="#s2" aria-controls="sysNew" role="tab" data-toggle="tab">配送信息</a>
+            <a href="#s3" aria-controls="sysNew" role="tab" data-toggle="tab">极速退款</a>
+            <a href="#s4" aria-controls="sysNew" role="tab" data-toggle="tab">营业资质</a>
+            <a href="#s5" aria-controls="sysNew" role="tab" data-toggle="tab">合同下载</a>
+            <a href="#s6" aria-controls="sysNew" role="tab" data-toggle="tab">商家管理规范</a>
+        </div>
+        <!--内容部分-->
+        <div class="tab-content">
+            <!--业务消息-->
+            <div class="global_content  tab-pane row margin_auto active "  role="tabpanel" id="s1" style="padding: 20px 0" >
+                <!--<form class="layui-form" action="">-->
+                    <div class="col-lg-6  " style="padding-left: 0">
+                        <div class="col-lg-12 shop_mitem1 shop_mitem bg_white">
+                            <ul>
+                                <li>
+                                    <h3 class="f_size18">{$shopDetails.shop_name}</h3>
+                                    <p class="f_size16 f_red">
+                                        {if condition="$shopDetails.shop_status eq 1"}
+                                            营业中
+                                        {else}
+                                            待营业
+                                        {/if}
+
+                                    </p>
+                                </li>
+                                <li style="margin-top: -6px">
+                                    <i>
+                                        <img src="__WEB__/__AIMG__/erweima.png" alt=""/>
+                                    </i>
+                                    <p class="f_gray1">该店铺二维码是您店铺的手机网址</p>
+                                </li>
+                                <li>
+                                    <a href="{:url('Shopset/updShopstatus')}?bid={$shopDetails.bid}&shopid={$shopDetails.id}&but_type=1&but_site=3" class="layui-btn layui-btn-sm bg_orange ">
+                                        {if condition="$shopDetails.shop_status eq 1"}
+                                        停止营业
+                                        {else}
+                                        开启营业
+                                        {/if}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-12 shop_mitem shop_mitem2 bg_white magt_20">
+                            <form action="{:url('Shopset/updShopName')}?shopid={$shopDetails.id}&but_type=1&but_site=3" method="post" >
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">门店信息</h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                            <span class="hidden">
+                                <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                <button type="submit" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                            </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>店铺名称:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$shopDetails.shop_name}</span>
+                                        <input  class="layui-input hidden" type="text" name="shop_name"  autocomplete="off" value="{$shopDetails.shop_name}" placeholder="请输入名称" >
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i class="sign">*</i>店铺照片:</label>
+                                    <div class="layui-input-block " >
+                                        <div class="add_gds_img hidden" style="vertical-align: middle;width: 100px;height: 100px;display: inline-block;" >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file">
+                                                <input type="file" class="file_img dataimg" id="fImg1"  accept="image/*"/>
+                                                <span class="upimg_pre">
+                                                      <img class="upimg1 add_img" src="{$shopDetails.logo}" alt=""/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="shop_mitem2ul hidden" style=" margin-left:30px;width: 350px;display: inline-block;vertical-align: middle;">
+                                            <ul>
+                                                <li>图片不得有水印、Logo 和其他网站信息,需现场拍摄</li>
+                                                <li>最少上传1张，最多5张图片，单张大小不超过10M</li>
+                                                <li>图片仅用于辅助审核门店名称，不会在店铺中展示</li>
+                                            </ul>
+                                        </div>
+                                        <div id="fImgList" >
+                                            <span class="upimg_pre" >
+                                                <i>X</i>
+                                                  <img  src="{$shopDetails.logo}" alt=""/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label " ><i class="sign">*</i>店铺简介:</label>
+                                        <div class="layui-input-block width_650">
+                                            <p class="shop_pdt8">
+                                                {$shopDetails.shop_info}
+                                            </p>
+                                            <textarea  class="layui-textarea hidden" placeholder="请输入内容" name="shop_info">{$shopDetails.shop_info}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-12 shop_mitem shop_mitem2 bg_white magt_20">
+                            <form action="{:url('Shopset/updShopInformation')}?shopid={$shopDetails.id}&but_type=1&but_site=3" method="post">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">基本信息</h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                                    <span class="hidden">
+                                        <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                        <button type="submit" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " >店铺电话:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$shopDetails.shop_phone}</span>
+                                        <input  class="layui-input hidden" type="text" name="shop_phone" lay-verify="title" autocomplete="off" placeholder="请输入电话" value="{$shopDetails.shop_phone}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " >店铺公告:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$notice.notice}</span>
+                                        <input class="layui-input hidden" type="text" name="notice" lay-verify="title" autocomplete="off" placeholder="请输入公告" value="{$notice.notice}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">店铺头像:</label>
+                                    <div class="layui-input-block " >
+                                        <div class="add_gds_img" style="width: 100px;height: 100px">
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg2"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$shopDetails.logo}" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup" style="width: 25px;height: 25px">
+                                                        <img class=" add_img" src="{$shopDetails.logo}" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="shop_mitem2ul1"></div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " >餐厅地址:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$address.sheng}{$address.shi}{$address.qu}{$address.shop_address}</span>
+                                        <input  class="layui-input hidden" type="text" name="shop_address" lay-verify="title" autocomplete="off" placeholder="请输入地址" value="{$address.sheng}{$address.shi}{$address.qu}{$address.shop_address}">
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 " style="padding-right: 0">
+                        <div class="col-lg-12 shop_mitem shop_mitem2 bg_white ">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">营业设置</h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                            <span class="hidden">
+                                <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                            </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>营业时间:</label>
+                                    <div class=" shop_mtable" style="position: relative;">
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                                <th>星期一</th>
+                                                <th>星期二</th>
+                                                <th>星期三</th>
+                                                <th>星期四</th>
+                                                <th>星期五</th>
+                                                <th>星期六</th>
+                                                <th>星期天</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="layui-form " >
+                                                    {foreach name="week" item="we"}
+                                                        {if condition="$we eq '星期一'"}
+                                                        <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+                                                        {/if}
+                                                    {/foreach}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-form " >
+                                                        {foreach name="week" item="we"}
+                                                        {if condition="$we eq '星期二'"}
+                                                        <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+
+                                                        {/if}
+                                                        {/foreach}
+                                                    </div>
+                                                </td>
+                                                <td><div class="layui-form " >
+                                                    {foreach name="week" item="we"}
+                                                    {if condition="$we eq '星期三'"}
+                                                    <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+                                                    {/if}
+                                                    {/foreach}
+                                                </div>
+                                                </td>
+                                                <td><div class="layui-form " >
+                                                    {foreach name="week" item="we"}
+                                                    {if condition="$we eq '星期四'"}
+                                                    <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+                                                    {/if}
+                                                    {/foreach}
+                                                </div>
+                                                </td>
+                                                <td><div class="layui-form " >
+                                                    {foreach name="week" item="we"}
+                                                    {if condition="$we eq '星期五'"}
+                                                    <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+                                                    {/if}
+                                                    {/foreach}
+                                                </div>
+                                                </td>
+                                                <td><div class="layui-form " >
+                                                    {foreach name="week" item="we"}
+                                                    {if condition="$we eq '星期六'"}
+                                                    <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+                                                    {/if}
+                                                    {/foreach}
+                                                </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-form " >
+                                                        {foreach name="week" item="we"}
+                                                        {if condition="$we eq '星期天'"}
+                                                        <input type="checkbox" name="write" title="" lay-skin="primary" checked="checked">
+                                                        {/if}
+                                                        {/foreach}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="shop_mitem2ul1"></div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline" style="line-height: 38px">
+                                        <label class="layui-form-label"></label>
+                                        <div class="layui-input-inline  f_size14 text-right " style="width: 100px;">
+                                            开始时间
+                                        </div>
+                                        <div class="layui-input-inline width_100" >
+
+                                            <input type="time" height="30px" class="layui-input-inline width_100">
+                                        </div>
+                                        <div class="shop_mitem2ul1"></div>
+                                        <div class="layui-input-inline f_size14 text-right" style="width: 100px;">
+                                            结束时间
+                                        </div>
+                                        <div class="layui-input-inline width_100" >
+                                            <select name="interest" lay-filter="aihao" >
+                                                <option value=""></option>
+                                                <option value="0">0:00</option>
+                                                <option value="1" >01:00</option>
+                                                <option value="1"selected >02:00</option>
+                                                <option value="1" >03:00</option>
+                                                <option value="1" >04:00</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="layui-form-item" style="position: relative;">
+                                    <label class="layui-form-label">可售时间:</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio"  name="sellTime" value="0" lay-skin="sellTime" lay-filter="radioTest"  title="支持" checked="">
+                                        <input type="radio"  name="sellTime" value="1" lay-fil="sellTime" lay-filter="radioTest" title="不支持">
+                                    </div>
+                                    <div class="shop_mitem2ul1"></div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="col-lg-12 shop_mitem shop_mitem3 bg_white magt_20">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">预设单设置</h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                            <span class="hidden">
+                                <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                            </span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label " style="width: 110px">预定单:</label>
+                                <div class="layui-input-block " style="padding-top: 16px;width: 80%;margin-left: 130px">
+                                    <div id="prog" class="progress">
+                                        <div class="progress-bar bg_orange" role="progressbar" style="width: 50.5%;">
+                                        </div>
+
+
+                                        <i class="clr2" style="left: -2px">
+                                            <text>当天</text>
+                                        </i>
+                                        <i class="clr2" style="left: 16.6%">
+                                            <text>第一天</text>
+                                        </i>
+                                        <i class="clr2" style="left: 33.3%">
+                                            <text>第二天</text>
+                                        </i>
+                                        <i class="clr2" style="left: 50%">
+                                            <text>第三天</text>
+                                        </i>
+                                        <i class="clr2" style="left: 66.6%">
+                                            <text>第四天</text>
+                                        </i>
+                                        <i class="clr2" style="left: 83.3%">
+                                            <text>第五天</text>
+                                        </i>
+                                        <i class="clr2" style="left: 99%">
+                                            <text>第六天</text>
+                                        </i>
+                                    </div>
+                                    <div class="shop_mitem2ul1"></div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="margin-top: 30px">
+                                <label class="layui-form-label " style="width: 120px"></label>
+                                <div id="progText" class="layui-input-block width_250"  style=" margin-left: 130px">
+                                    支持当天 <text>到第三天</text>的预订单
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label " style="padding-left: 0;width: 120px">预定单提醒时间:</label>
+                                <span class="shop_pdt8">60分钟</span>
+
+                                <div class="layui-input-block width_100 hidden" style=" margin-left: 130px">
+                                    <select name="interest" lay-filter="aihao">
+                                        <option value=""></option>
+                                        <option value="0">10分钟</option>
+                                        <option value="1" >20分钟</option>
+                                        <option value="1" selected>30分钟</option>
+                                        <option value="1" >40分钟</option>
+                                        <option value="1" >50分钟</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 shop_mitem shop_mitem3 bg_white magt_20">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">打印设置</h3>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label shop_mitem32" >GPRS打印机:</label>
+                                <div class="layui-input-block " style="line-height: 36px">
+                                    YAORIS-54(已连接)
+                                </div>
+                            </div>
+                            <div class="layui-form-item" >
+                                <label class="layui-form-label shop_mitem32">自动打印小票</label>
+                                <div class="layui-input-block width_250" >
+                                    <input type="checkbox" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!--</form>-->
+            </div>
+            <!--配送信息-->
+            <div class="global_content  tab-pane" role="tabpanel" id="s2" style="padding: 20px 0" >
+                <div class="col-lg-12 shop_mitem shop_mitem2 bg_white ">
+                    <div class="shop_head use_flex">
+                        <h3 class="f_size18">配送方式 &nbsp;<text class="f_size14 f_gray1">商家自配</text></h3>
+                    </div>
+                    <p class="f_gray1">您目前的配送方式为：商家自己配送。若需要更换配送方式请联系业务经理。张老师(321326546415)</p>
+                </div>
+                <div class="col-lg-12 shop_mitem shop_mitem2 bg_white magt_20" style="padding-bottom: 0">
+                    <div class="shop_head use_flex">
+                        <h3 class="f_size18">配送信息</h3>
+                    </div>
+                </div>
+                <div class="col-lg-12 " style="padding-left: 0;padding-right: 0">
+                    <div class="use_flex">
+                        <div class="bg_white  peis-item bg_white" style="height: 600px;overflow: auto;">
+                            <form  class="form-horizontal" action="">
+                                <div>
+                                    <div class="shop_head use_flex peis-head" >
+                                        <h3 class="f_size15">常规时段</h3>
+                                        <span class="text-center">01:00 - 20:00</span>
+                                        <a class="timeEdit" href="javascript:;"><img width="" src="__WEB__/__AIMG__/edit1.png" style="vertical-align: middle" alt=""/></a>
+                                        <span class="f_blue text-right"> 生效中 </span>
+                                    </div>
+                                    <div class="peis-item1 bg_gray2">
+                                        <div class=" f_size13 use_flex ">
+                                            <div class="f_blue ">配送范围</div>
+                                            <div style="height: 100%"><img style="vertical-align: inherit" src="__WEB__/__AIMG__/eyesopen.png" alt=""/></div>
+                                            <div class="text-right"><a href="javascript:;">取消</a> /
+                                                <a href="javascript:;" class="f_orange"> 保存</a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <label  class="col-sm-3  control-label">起送价</label>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                            <span style="line-height: 24px">元</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 text-center control-label">配送费</label>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                            <span style="line-height: 24px">元</span>
+                                        </div>
+                                        <hr/>
+                                        <div class="peis-item11 f_red">
+                                            <h4 class="f_size14">审核失败</h4>
+                                            <p >
+                                                失败原因：你的配送费太高了，我建议你关门大吉，好好考虑。
+                                            </p>
+                                        </div>
+                                        <div class="peis-item12"></div>
+                                    </div>
+                                </div>
+                                <div class="magt_20 spsicalTime">
+                                    <div class="shop_head use_flex peis-head peis-head1">
+                                        <h3 class="f_size15">特殊时段</h3>
+                                        <span class="text-center">01:00 - 20:00</span>
+                                        <a class="timeEdit" href="javascript:;"><img width="" src="__WEB__/__AIMG__/edit1.png" style="vertical-align: middle" alt=""/></a>
+                                        <span class="f_blue text-right"> 生效中 </span>
+                                    </div>
+                                    <div class="peis-item1  ">
+                                        <div class="bd_gray1 peis-item2">
+                                            <div class=" f_size13 use_flex">
+                                                <div >配送范围</div>
+                                                <span class="text-center" style="height: 100%"><img style="vertical-align: inherit" src="__WEB__/__AIMG__/eyescloes.png" alt=""/></span>
+                                            </div>
+                                            <p class="peis-item21">
+                                                <span>起送价： 20 </span>
+                                                <span style="margin-left: 10px;margin-right: 10px"> | </span>
+                                                <span>配送费： 2 </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a
+                                            href="javascript:;" class="peis-item1 f_orange"><span><img src="__WEB__/__AIMG__/jia1.png" alt=""/> </span> 添加配送范围</a>
+                                </div>
+                                <div class="magt_20  hidden">
+                                    <div class="shop_head use_flex peis-head">
+                                        <h3 class="f_size16">特殊时段 <text></text></h3>
+                                    </div>
+                                    <div class="peis-item1 bg_gray2 peis-item3">
+                                        <div class=" f_size13 use_flex ">
+                                            <div class="f_blue ">时间段设置</div>
+                                            <div class="text-right"><a href="javascript:;">取消</a> /
+                                                <a href="javascript:;" class="f_orange"> 保存</a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <label  class="col-sm-3  control-label">时间段</label>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                            <span  style="line-height: 24px;float: left">-</span>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <label  class="col-sm-5 control-label " style="text-align: left">配送范围设置</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 text-center control-label">配送费</label>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                            <span style="line-height: 24px">元</span>
+                                        </div>
+                                        <hr/>
+                                        <div class="peis-item31">
+                                            <label class="radio-inline" style="margin-right: 20px" >
+                                                <input type="radio" name="shape" id="inlineRadio2" value="0" > <span>多边形区域</span>
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="shape" id="inlineRadio3" value="1"> <span>圆形区域</span>
+                                            </label>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group" style="margin-top: 10px">
+                                            <label  class="col-sm-3  control-label">起送价</label>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                            <span style="line-height: 24px">元</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 text-center control-label">配送费</label>
+                                            <div class="col-sm-4">
+                                                <input type="email" class="form-control"  placeholder="">
+                                            </div>
+                                            <span style="line-height: 24px">元</span>
+                                        </div>
+                                        <div class="peis-item12"></div>
+                                    </div>
+                                </div>
+                                <div id="addSpecialTime"  class=" bg_white bd_orange f_orange peis-item4" >添加特殊时段</div>
+                            </form>
+                        </div>
+                        <!--地图-->
+                        <div style="position: relative">
+                            <div id="container" style="height: 600px;"></div>
+                            <div class="button-group">
+                                <input type="button" class="button" value="开始编辑多边形" onClick="editor.startEditPolygon()"/>
+                                <input type="button" class="button" value="结束编辑多边形" onClick="editor.closeEditPolygon()"/>
+                                <input type="button" class="button" value="开始编辑圆" onClick="editor.startEditCircle()"/>
+                                <input type="button" class="button" value="结束编辑圆" onClick="editor.closeEditCircle()"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="global_content tab-pane row margin_auto" role="tabpanel" id="s3" >极速退款</div>
+            <!--营业资质-->
+            <div class="global_content  tab-pane row margin_auto" role="tabpanel" id="s4" style="padding: 20px 0">
+                <form class="layui-form" action="">
+                    <div class="col-lg-6  " style="padding-left: 0">
+                        <div class="col-lg-12 shop_mitem  shop_mitem5 shop_mitem2 bg_white ">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">营业执照 &nbsp;<text class="f_size14 f_gray1">审核成功</text></h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                                <span class="hidden">
+                                    <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                    <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                                </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i class="sign">*</i>照片:</label>
+                                    <div class="layui-input-block use_flex" >
+                                        <div class="add_gds_img inline_img"  >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg3"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$cardOne.certificates_img}" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="{$cardOne.certificates_img}" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="add_gds_img inline_img" >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg4"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="__WEB__/__AIMG__/itme1_bg.png" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="__WEB__/__AIMG__/upimg1.png" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="imgs1 hidden f_size13">
+                                            <ul>
+                                                <li>1、照片需现场采集</li>
+                                                <li>2、证件信息需清晰可辨认</li>
+                                                <li>3、照片不得有水印、LOGO和其他网站信息</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>名称:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardOne.certificates_name}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入名称" value="{$cardOne.certificates_name}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>法人代表/经营者:</label>
+                                    <div class="layui-input-block width_250">
+                                        <p class="shop_pdt8">
+                                            {$cardOne.legal_person}
+                                        </p>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入法人名字" value="{$cardOne.legal_person}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>营业执照注册号:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardOne.register_number}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入注册号" value="{$cardOne.register_number}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>地址:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardOne.certificates_place}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入证件所在地" value="{$cardOne.certificates_place}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline" style="width: 100%">
+                                        <label class="layui-form-label " ><i class="sign">*</i>经营范围:</label>
+                                        {if condition="$cardOne.validity_type eq 1"}
+                                            <span class="shop_pdt8" style="margin-left: 20px">长期有效</span>
+                                        {else/}
+                                        <span class="shop_pdt8" style="margin-left: 20px">至{$cardOne.validity_term}</span>
+                                        {/if}
+
+                                        {if condition="$cardOne.validity_type eq 1"}
+                                            <div class="layui-input-inline hidden" style="width: auto;margin-left: 20px">
+
+                                                <input type="radio" name="a" value="0" title="长期有效" checked>
+                                                <input type="radio" name="a" value="1" title="定期有效 截止日" >
+                                            </div>
+                                            <div class="layui-input-inline hidden">
+                                                <input type="text" name="date1" id="date1" lay-verify="date1" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                                            </div>
+                                        {else/}
+                                            <div class="layui-input-inline hidden" style="width: auto;margin-left: 20px">
+
+                                                <input type="radio" name="a" value="0" title="长期有效" >
+                                                <input type="radio" name="a" value="1" title="定期有效 截止日" checked>
+                                            </div>
+                                            <div class="layui-input-inline hidden">
+                                                <input type="text" name="date1" id="dateShot" lay-verify="date1" value="{$cardOne.validity_term}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                                            </div>
+                                        {/if}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 shop_mitem shop_mitem2 shop_mitem5 bg_white magt_20">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">特许证件 </h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                                <span class="hidden">
+                                    <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                    <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                                </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i class="sign">*</i>照片:</label>
+                                    <div class="layui-input-block use_flex" >
+                                        <div class="add_gds_img inline_img"  >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg5"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$cardTwo.certificates_img}" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="{$cardTwo.certificates_img}" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="add_gds_img inline_img" >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg6"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="__WEB__/__AIMG__/itme1_bg.png" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="__WEB__/__AIMG__/upimg1.png" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="imgs1 hidden f_size13">
+                                            <ul>
+                                                <li>1、照片需现场采集</li>
+                                                <li>2、证件信息需清晰可辨认</li>
+                                                <li>3、照片不得有水印、LOGO和其他网站信息</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>特许证件类型:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">身份证</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入名称" >
+                                    </div>
+                                </div>-->
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>特许证件注册号:</label>
+                                    <div class="layui-input-block width_250">
+                                        <p class="shop_pdt8">
+                                            {$cardTwo.register_number}
+                                        </p>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入证件注册号" value="{$cardTwo.register_number}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>地址:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardTwo.certificates_place}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入地址" value="{$cardTwo.certificates_place}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>负责人/法定代表人:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardTwo.legal_person}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入负责人/法定代表人" value="{$cardTwo.legal_person}">
+                                    </div>
+                                </div>
+                                <!--<div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>名称/经营者名称:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">阿三大多数</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入名称" >
+                                    </div>
+                                </div>-->
+                                <div class="layui-form-item">
+                                    <div class="layui-inline" style="width: 100%">
+                                        <label class="layui-form-label " ><i class="sign">*</i>特许证件有效期:</label>
+                                        {if condition="$cardTwo.validity_type eq 1"}
+                                        <span class="shop_pdt8" style="margin-left: 20px">长期有效</span>
+                                        {else/}
+                                        <span class="shop_pdt8" style="margin-left: 20px">至{$cardTwo.validity_term}</span>
+                                        {/if}
+                                        {if condition="$cardTwo.validity_type eq 1"}
+                                            <div class="layui-input-inline hidden" style="width: auto;margin-left: 20px">
+                                                <input type="radio" name="b" value="0" title="长期有效" checked>
+                                                <input type="radio" name="c" value="1" title="定期有效 截止日">
+                                            </div>
+                                            <div class="layui-input-inline hidden">
+                                                <input type="text" name="date2" id="date2" lay-verify="date2" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                                            </div>
+                                        {else/}
+                                            <div class="layui-input-inline hidden" style="width: auto;margin-left: 20px">
+                                                <input type="radio" name="b" value="0" title="长期有效" >
+                                                <input type="radio" name="c" value="1" title="定期有效 截止日" checked>
+                                            </div>
+                                            <div class="layui-input-inline hidden">
+                                                <input type="text" name="date2" id="dateShort2" lay-verify="date2" value="{$cardTwo.validity_term}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                                            </div>
+                                        {/if}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 " style="padding-right: 0">
+                        <div class="col-lg-12 shop_mitem shop_mitem5 shop_mitem2 bg_white ">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">许可证件 &nbsp;<text class="f_size14 f_gray1">审核成功</text></h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                                <span class="hidden">
+                                    <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                    <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                                </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i class="sign">*</i>照片:</label>
+                                    <div class="layui-input-block use_flex" >
+                                        <div class="add_gds_img inline_img"  >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg7"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$cardThree.certificates_img}" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="{$cardThree.certificates_img}" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="add_gds_img inline_img" >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg8"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="__WEB__/__AIMG__/itme1_bg.png" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="__WEB__/__AIMG__/upimg1.png" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="imgs1 hidden f_size13">
+                                            <ul>
+                                                <li>1、照片需现场采集</li>
+                                                <li>2、证件信息需清晰可辨认</li>
+                                                <li>3、照片不得有水印、LOGO和其他网站信息</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item tab_magt_0">
+                                    <label class="layui-form-label " ><i class="sign">*</i>许可证件名字:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardThree.certificates_name}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入名字" value="{$cardThree.certificates_name}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item tab_magt_0">
+                                    <label class="layui-form-label " ><i class="sign">*</i>法定代表人:</label>
+                                    <div class="layui-input-block width_250">
+                                        <p class="shop_pdt8">
+                                            {$cardThree.legal_person}
+                                        </p>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入法定代表人" value="{$cardThree.legal_person}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item tab_magt_0">
+                                    <label class="layui-form-label " ><i class="sign">*</i>许可证件编号:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardThree.register_number}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入编号" value="{$cardThree.register_number}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item tab_magt_0">
+                                    <label class="layui-form-label " ><i class="sign">*</i>地址:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardThree.certificates_place}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入地址" value="{$cardThree.certificates_place}">
+                                    </div>
+                                </div>
+                                <!--<div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>公司名称:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">陆家嘴东方明珠塔对面四季酒店</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入名称" >
+                                    </div>
+                                </div>-->
+                                <div class="layui-form-item">
+                                    <div class="layui-inline" style="width: 100%">
+                                        <label class="layui-form-label " ><i class="sign">*</i>证件有效期:</label>
+                                        {if condition="$cardThree.validity_type eq 1"}
+                                            <span class="shop_pdt8" style="margin-left: 20px">长期有效</span>
+                                        {else/}
+                                            <span class="shop_pdt8" style="margin-left: 20px">至{$cardThree.validity_term}</span>
+                                        {/if}
+                                        {if condition="$cardThree.validity_type eq 1"}
+                                            <div class="layui-input-inline hidden" style="width: auto;margin-left: 20px">
+                                                <input type="radio" name="b" value="0" title="长期有效" checked>
+                                                <input type="radio" name="c" value="1" title="定期有效 截止日">
+                                            </div>
+                                            <div class="layui-input-inline hidden">
+                                                <input type="text" name="date3" id="date3" lay-verify="date3" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                                            </div>
+                                        {else/}
+                                            <div class="layui-input-inline hidden" style="width: auto;margin-left: 20px">
+                                                <input type="radio" name="b" value="0" title="长期有效" >
+                                                <input type="radio" name="c" value="1" title="定期有效 截止日" checked>
+                                            </div>
+                                            <div class="layui-input-inline hidden">
+                                                <input type="text" name="date3" id="dateShort3" lay-verify="date3" value="{$cardThree.validity_term}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                                            </div>
+                                        {/if}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 shop_mitem shop_mitem2 shop_mitem5 bg_white magt_20">
+                            <div class="shop_head use_flex">
+                                <h3 class="f_size18">个人证件 &nbsp;<text class="f_size14 f_gray1">审核成功</text></h3>
+                                <div class="text-right">
+                                    <a href="javascript:;" class="f_orange edit">修改</a>
+                                <span class="hidden">
+                                    <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                    <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                                </span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"><i class="sign">*</i>照片:</label>
+                                    <div class="layui-input-block use_flex" >
+                                        <div class="add_gds_img inline_img"  >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file">
+                                                <span class="upimg_pre">
+                                                      <img class="upimg1 add_img" src="__WEB__/__AIMG__/test1.png" alt=""/>
+                                                </span>
+                                            </div>
+                                            <div class="img_file" id="imgFile9"></div>
+                                        </div>
+                                        <div class="add_gds_img inline_img" >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg10"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$IDPhoto[0]}" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="{$IDPhoto[0]}" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="imgs1 hidden f_size13">
+                                            <ul>
+                                                <li>1、证件信息需清晰可辨认</li>
+                                                <li>2、持证人五官清晰可见</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label"></label>
+                                    <div class="layui-input-block use_flex" >
+                                        <div class="add_gds_img inline_img"  >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file">
+                                                <span class="upimg_pre">
+                                                      <img class="upimg1 add_img" src="__WEB__/__AIMG__/bianji.png" alt=""/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="add_gds_img inline_img" >
+                                            <div class="shop_mitem2ul1"></div>
+                                            <div class="file" style="height: 100%;">
+                                                <input type="file" class="file_img dataimg "  id="fImg12"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$IDPhoto[1]}" alt=""/>
+                                                </span>
+                                                <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="{$IDPhoto[1]}" alt=""/>
+                                                    </span>
+                                                    <p class="f_orange">上传图片</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="imgs1 hidden f_size13">
+                                            <ul>
+                                                <li>1、证件信息需清晰可辨认</li>
+                                                <li>2、持证人五官清晰可见</li>
+                                                <li>3、此处手持个人证件国徽面</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>个人证件类型:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardFour.certificates_name}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入类型" value="{$cardFour.certificates_name}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>姓名:</label>
+                                    <div class="layui-input-block width_250">
+                                        <p class="shop_pdt8">
+                                            {$cardFour.legal_person}
+                                        </p>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入姓名" value="{$cardFour.legal_person}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label " ><i class="sign">*</i>证件所在地:</label>
+                                    <div class="layui-input-block width_250">
+                                        <span class="shop_pdt8">{$cardFour.certificates_place}</span>
+                                        <input  class="layui-input hidden" type="text" name="title"  autocomplete="off" placeholder="请输入所在地" value="{$cardFour.certificates_place}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 bg_white  shop_mitem shop_mitem2 shop_mitem5  magt_20" style=";padding-bottom: 40px">
+                        <div class="shop_head use_flex">
+                            <h3 class="f_size18">餐饮服务等级 </h3>
+                            <div class="text-right">
+                                <a href="javascript:;" class="f_orange edit">修改</a>
+                                <span class="hidden">
+                                    <button type="button" class="layui-btn layui-btn-sm bg_white bd_orange f_orange back" >退出</button>
+                                    <button type="button" class="layui-btn layui-btn-sm bg_orange ">保存</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div >
+                            <div class="layui-form-item col-lg-8 col-sm-offset-3">
+                                <label class="layui-form-label"><i class="sign">*</i>照片:</label>
+                                <div class="layui-input-block use_flex" >
+                                    <div class="add_gds_img inline_img"  >
+                                        <div class="file" style="height: 100%;">
+                                            <input type="file" class="file_img dataimg "  id="fImg13"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="{$cardFive.certificates_img}" alt=""/>
+                                                </span>
+                                            <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="{$cardFive.certificates_img}" alt=""/>
+                                                    </span>
+                                                <p class="f_orange">上传图片</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="add_gds_img inline_img" >
+                                        <div class="file" style="height: 100%;">
+                                            <input type="file" class="file_img dataimg "  id="fImg14"  accept="image/*"/>
+                                                <span class="upimg_pre hidden1" style="width: 100%;height: 100%">
+                                                     <img class="upimg1 add_img" src="__WEB__/__AIMG__/itme1_bg.png" alt=""/>
+                                                </span>
+                                            <div class="my_imgups">
+                                                     <span class="my_imgup">
+                                                        <img class=" add_img" src="__WEB__/__AIMG__/upimg1.png" alt=""/>
+                                                    </span>
+                                                <p class="f_orange">上传图片</p>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <div class="imgs1 f_size13">
+                                        <ul>
+                                            <li>请您配合上传《餐饮服务安全公示图片》,</li>
+                                            <li>并承诺信息真实有效，由该信息引起的责任</li>
+                                            <li>与美团外卖平台无关</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--合同下载-->
+            <div class="global_content tab-pane bg_white" role="tabpanel" id="s5" >
+                <div class="shop_head use_flex">
+                    <h3 class="f_size16">审核状态：<text class="f_orange f_size15">审核通过</text></h3>
+                    <div class="text-right">
+                        <a href="javascript:;" class="f_orange" id="downCont">下载合同</a>
+                    </div>
+                </div>
+                <div class="global_content bg_gray text-center">
+                    <img src="__WEB__/__AIMG__/timg.png" alt=""/>
+                </div>
+            </div>
+            <!--商家管理规范-->
+            <div class="global_content tab-pane bg_white" role="tabpanel" id="s6" >
+                <div class="row margin_auto  navbar-static"  role="navigation" style="padding-top: 30px">
+                    <div class="col-lg-12">
+                        <div class="use_flex">
+                            <div style="width: 260px;flex: none;margin-left: 100px;margin-right: 40px">
+                                <nav id="navbar-example" class="navbar navbar-default navbar-static  shop_mitem4 " role="navigation">
+                                    <div class=" container-fluid">
+                                        <div class="collapse navbar-collapse bs-js-navbar-scrollspy">
+                                            <ul class="nav navbar-nav f_size14">
+                                                <li ><a href="#read1" class="f_orange">《盒籽外卖商家名称命名规范》</a></li>
+                                                <li><a href="#read2" class="f_orange">《盒籽外卖商家名称命名规范》</a></li>
+                                                <li><a href="#read3" class="f_orange">《盒籽外卖商家名称命名规范》</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                        <div>
+                            <div class="bd_gray Smbooks" data-offset="0"  data-spy="scroll" data-target="#navbar-example">
+                                <h4 id="read1">iOS</h4>
+                                <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+                                    TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。
+                                </p>
+                                <h4 id="read2">SVN</h4>
+                                <p style="height: 400px ">Apache Subversion，通常缩写为 SVN，是一款开源的版本控制系统软件。Subversion 由 CollabNet 公司在 2000 年创建。但是现在它已经发展为 Apache Software Foundation 的一个项目，因此拥有丰富的开发人员和用户社区。
+                                </p>
+                                <h4 id="jmeter">jMeter</h4>
+                                <p style="height: 500px">jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。
+                                </p>
+                                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                                <p id="read3">Spring 框架是一个开源的 Java 平台，为快速开发功能强大的 Java 应用程序提供了完备的基础设施支持。
+                                </p>
+                                <p>Spring 框架最初是由 Rod Johnson 编写的，在 2003 年 6 月首次发布于 Apache 2.0 许可证下。
+                                </p>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="__WEB__/__AJS__/layui/layui.all.js"></script>
+<script type="text/javascript" src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="__WEB__/__AJS__/bootstrap.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        /*门店信息*/
+        $('.business_title a').on('click',function (e) {
+            $(this).addClass('modal_active');
+            $(this).siblings().removeClass('modal_active');
+            e.preventDefault();
+        });
+
+        $('.shop3_ul li').on('click',function () {
+
+        })
+        
+        $('.edit').click(function () {
+            var parent = $(this).parents('.shop_mitem');
+            parent.find('.hidden').removeClass('hidden');
+            parent.find('.shop_pdt8').addClass('hidden');
+            parent.find('.shop_mitem2ul1').addClass('hidden');
+            $(this).addClass('hidden');
+        });
+        $('.back').click(function () {
+            var parent = $(this).parents('.shop_mitem');
+            parent.find('.hidden').removeClass('hidden');
+            $(this).addClass('hidden').next().addClass('hidden');
+            parent.find('.shop_pdt8').next().addClass('hidden');
+            parent.find('.shop_pdt8').siblings('.layui-input-inline').addClass('hidden');
+            if(parent.find('.shop_mitem2ul')){
+                parent.find('.shop_mitem2ul').addClass('hidden');
+            }
+        });
+        //门店信息---店铺照片删除
+       $(document).on('click','.upimg_pre i',function () {debugger
+           $(this).parent().remove()
+       });
+        $('.timeEdit').click(function () {
+            debugger
+        });
+
+        //预设单设置
+        $('#prog i').each(function (index,item) {
+            var str = '';
+            switch (index){
+                case 0:
+                    str='';
+                    break;
+                case 1:
+                    str='到第一天';
+                    break;
+                case 2:
+                    str='到第二天';
+                    break;
+                case 3:
+                    str='到第三天';
+                    break;
+                case 4:
+                    str='到第四天';
+                    break;
+                case 5:
+                    str='到第五天';
+                    break;
+                case 6:
+                    str='到第六天';
+                    break;
+            }
+            $(this).click(function () {
+                var len = index*16.7+'%';
+                $('#prog .progress-bar').css('width',len);
+
+                $('#progText text').text(str)
+            })
+        });
+
+        //        地图
+        $(document).on('.radio-inline   ','click', function () {
+            console.log(this)
+        });
+        $('#addSpecialTime').click(function () {
+            var leng = $('.spsicalTime').length;
+            var newObj = $(this).parent().find('.hidden').clone();
+            newObj.removeClass('hidden');
+            newObj.addClass('spsicalTime');
+            newObj.find('h3 text').text(leng+1);
+            $(this).before(newObj)
+        });
+
+
+
+        //所有图片上传
+
+        $('#fImg1').click(function () {
+            var id = $(this).attr('id');
+            upImg(id,1)
+        });
+        $('#fImg2').click(function () {
+            var id = $(this).attr('id');
+            upImg(id,2)
+        })
+
+        $('.shop_mitem5').find(':file').click(function () {
+            upImg($(this).attr('id'),2)
+        });
+
+        function upImg(id,type){
+            var upload = layui.upload;
+
+            var _id = '#'+id;
+            var uploadInst = upload.render({
+                elem: _id
+//            , auto: false
+                ,url: '/upload/'
+//            , bindAction: '#upImg'
+                , accept: 'images' //允许上传的文件类型
+                , acceptMime: 'image/*'
+                , size: 500 //最大允许上传的文件大小
+                ,choose: function (obj) {
+                    console.log(obj);
+
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function(index, file, result){debugger
+                        if(type == 2){
+                            $(_id).parent().find('.hidden1').removeClass('hidden1').find('img').attr('src',result);
+                            $(_id).parent().find('.my_imgups').hide();
+                        }else if(type == 1){
+                            var _str = "<span class='upimg_pre' > <i>X</i> <img  src='"+result+"' alt=''/> </span>";
+                            $('#fImgList').append(_str);
+                        }else if(type ==3){
+                            $(_id).parent().find('img').attr('src',result)
+                        }
+                    })
+                }
+                ,before: function(obj){
+
+                }
+                ,done: function(res){
+                    //如果上传失败
+                    if(res.code > 0){
+                        return layer.msg('上传失败');
+                    }
+                    //上传成功
+                }
+                ,error: function(){
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function(){
+                        uploadInst.upload();
+                    });
+                }
+            });
+        }
+        /*门店信息end*/
+
+        /*营业资质*/
+
+        /*营业资质end*/
+
+//    上传图片功能
+
+
+
+
+    });
+
+
+</script>
+<script>
+    var editorTool, map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: [116.403322, 39.900255],//地图中心点
+        zoom: 13 //地图显示的缩放级别
+    });
+    //在地图上绘制折线
+    var editor={};
+  /*  editor._line=(function(){
+        var lineArr = [
+            [116.368904, 39.913423],
+            [116.382122, 39.901176],
+            [116.387271, 39.912501],
+            [116.388258, 39.904600]
+        ];
+        return new AMap.Polyline({
+            map: map,
+            path: lineArr,
+            strokeColor: "#FF33FF",//线颜色
+            strokeOpacity: 1,//线透明度
+            strokeWeight: 3,//线宽
+            strokeStyle: "solid"//线样式
+        });
+    })();*/
+    editor._polygon=(function(){
+        var arr = [ //构建多边形经纬度坐标数组
+            [116.403322,39.920255],
+            [116.410703,39.897555],
+            [116.402292,39.892353],
+            [116.389846,39.891365]
+        ]
+        return new AMap.Polygon({
+            map: map,
+            path: arr,
+            strokeColor: "#0000ff",
+            strokeOpacity: 1,
+            strokeWeight: 3,
+            fillColor: "#f5deb3",
+            fillOpacity: 0.35
+        });
+    })();
+    editor._circle=(function(){
+        var circle = new AMap.Circle({
+            center: [116.433322, 39.900255],// 圆心位置
+            radius: 1000, //半径
+            strokeColor: "#F33", //线颜色
+            strokeOpacity: 1, //线透明度
+            strokeWeight: 3, //线粗细度
+            fillColor: "#ee2200", //填充颜色
+            fillOpacity: 0.35//填充透明度
+        });
+        circle.setMap(map);
+        return circle;
+    })();
+    map.setFitView();
+//    editor._lineEditor= new AMap.PolyEditor(map, editor._line);
+    editor._polygonEditor= new AMap.PolyEditor(map, editor._polygon);
+    editor._circleEditor= new AMap.CircleEditor(map, editor._circle);
+
+  /*  editor.startEditLine=function(){
+        editor._lineEditor.open();
+    }
+    editor.closeEditLine=function(){
+        editor._lineEditor.close();
+    }*/
+
+    editor.startEditPolygon=function(){
+        editor._polygonEditor.open();   //多边形编辑
+    }
+    editor.closeEditPolygon=function(){
+        editor._polygonEditor.close();  //多边形编辑关闭
+    }
+
+    editor.startEditCircle=function(){
+        editor._circleEditor.open();    //圆形编辑
+    }
+    editor.closeEditCircle=function(){
+        editor._circleEditor.close();   //圆形关闭
+    }
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,393 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>外卖-商家审核-查看</title>
+    <link rel="stylesheet" href="__ACSS__/Total_backstage.css"/>
+</head>
+
+<body>
+<div class="bad_order content">
+    <div class="content_con">
+
+        <div class="seenew_con">
+            <p class="see_new"><span>商户信息</span></p>
+            <div class="look_new">
+                <div class="looknew_items">
+
+                    <!--放开set-->
+                    <p class="looknew"><i class="see_num">1</i>基本信息 <span class="see_take">收起<i><img
+                            src="__AIMG__/Take.png"/></i></span></p>
+                    <div class="looknew_item">
+                        <span class="looknew_font">商家名称：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_info.shop_name|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">联系人姓名：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_info.contacts|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">联系人电话：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_info.contacts_phone|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">外卖电话：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_info.shop_phone|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">商家类型：</span>
+                        <span class="looknew_text">
+							<span class="looknew_select">
+								<select disabled="disabled">
+									<option>{$shop_info.shop_type.top|default=''}</option>
+								</select>
+							</span>
+								<span class="looknew_select">
+								<select disabled="disabled">
+									<option>{$shop_info.shop_type.title|default=''}</option>
+								</select>
+							</span>
+								<span class="looknew_select">
+								<select disabled="disabled">
+									<option>{$shop_info.shop_type.name|default=''}</option>
+								</select>
+							</span>
+                        </span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">营业时间：</span>
+                        <span class="looknew_text">
+							<span class="looknew_time">
+								<input type="time" value="{$shop_info.business_hours.0|default=''}"/>
+								<i><img src="__AIMG__/time.png"/></i>
+							</span>
+							<span class="look_newti">～</span>
+							<span class="looknew_time">
+								<input type="time" value="{$shop_info.business_hours.1|default=''}"/>
+								<i><img src="__AIMG__/time.png"/></i>
+							</span>
+                        </span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">门店地址：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_info.address|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">店铺门脸照：</span>
+                        <span class="looknew_text">
+							<div class="looknew_img">
+								<img src="{$shop_info.out_img|default=''}"/>
+							</div>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">店内照：</span>
+                        <span class="looknew_text">
+							<div class="looknew_img">
+								<img src="{$shop_info.in_img|default=''}"/>
+							</div>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">店铺LOGO：</span>
+                        <span class="looknew_text">
+							<div class="looknew_img">
+								{$shop_info.logo|default=''}
+							</div>
+						</span>
+                    </div>
+                </div>
+
+
+                <div class="looknew_items">
+                    <!--放开set-->
+                    <p class="looknew"><i class="see_num">2</i>资质信息 <span class="see_take">收起<i><img
+                            src="__AIMG__/Take.png"/></i></span></p>
+                    <div class="looknew_item">
+                        <p class="itemnew_font">身份证照</p>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">法人姓名：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$iden_card.legal_person|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">身份证号码：</span>
+                        <span class="looknew_text">
+                            <input type="text" readonly="readonly" value="{$iden_card.legal_person|default=''}"/>
+
+                            <div class="looknew_shen">
+                                <span class="looknew_img"><img src="{$iden_card.certificates_img.0|default=''}"/></span>
+                                <span class="looknew_img"><img src="{$iden_card.certificates_img.1|default=''}"/></span>
+                            </div>
+
+                        </span>
+
+                    </div>
+                    <div class="looknew_item">
+                        <p class="itemnew_font">营业执照</p>
+
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照名称：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_idf_card.certificates_name|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">法人代表姓 名：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_idf_card.legal_person|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">经营场所：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_idf_card.certificates_place|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照注册号：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$shop_idf_card.register_number|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照有效期：</span>
+                        <span class="looknew_text">
+                            <div class="zhiz_time">
+                                <span class="radio">
+                                    <input id="item2_01" type="radio" name="item2" class="radios" value="短期有效" checked>
+                                    <label for="item2_01"></label>
+                                    <span class="looknew_time">
+                                        <input type="text" value="{$shop_idf_card.validity_term|default=''}"/>
+                                        <i><img src="__AIMG__/time.png"/></i>
+                                    </span>
+                                </span>
+                                <span class="radio">
+                                    <input id="item2_02" type="radio" name="item2" value="长期有效" class="radios">
+                                    <label for="item2_02"></label>
+                                    <span>长期有效</span>
+                                </span>
+
+                            </div>
+
+                            <div class="looknew_shen">
+                                <span class="looknew_img"><img src="{$shop_idf_card.certificates_img|default=''}"/></span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="looknew_item">
+                        <p class="itemnew_font">许可证</p>
+
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照名称：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$one_card.certificates_name|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">法人代表姓 名：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$one_card.legal_person|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">经营场所：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$one_card.certificates_place|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照注册号：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$one_card.register_number|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照有效期：</span>
+                        <span class="looknew_text">
+                            <div class="zhiz_time">
+                                <span class="radio">
+                                    <input id="item3_01" type="radio" name="item2" class="radios" value="短期有效" checked>
+                                    <label for="item3_01"></label>
+                                    <span class="looknew_time">
+                                        <input type="text" value="{$one_card.validity_term|default=''}"/>
+                                        <i><img src="__AIMG__/time.png"/></i>
+                                    </span>
+                                </span>
+                                <span class="radio">
+                                    <input id="item3_02" type="radio" name="item2" value="长期有效" class="radios">
+                                    <label for="item3_02"></label>
+                                    <span>长期有效</span>
+                                </span>
+                            </div>
+
+                            <div class="looknew_shen">
+                                <span class="looknew_img"><img src="{$one_card.certificates_img|default=''}"/></span>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="looknew_item">
+                        <p class="itemnew_font">特许证件</p>
+
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照名称：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$special_card.certificates_name|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">法人代表姓 名：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$special_card.legal_person|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">经营场所：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$special_card.certificates_place|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照注册号：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$special_card.register_number|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">执照有效期：</span>
+                        <span class="looknew_text">
+                            <div class="zhiz_time">
+                                <span class="radio">
+                                    <input id="item4_01" type="radio" name="item2" class="radios" value="短期有效" checked>
+                                    <label for="item4_01"></label>
+                                    <span class="looknew_time">
+                                        <input type="text" value="{$special_card.validity_term|default=''}"/>
+                                        <i><img src="__AIMG__/time.png"/></i>
+                                    </span>
+                                </span>
+                                <span class="radio">
+                                    <input id="item4_02" type="radio" name="item2" value="长期有效" class="radios">
+                                    <label for="item4_02"></label>
+                                    <span>长期有效</span>
+                                </span>
+                            </div>
+
+                            <div class="looknew_shen">
+                                <span class="looknew_img"><img src="{$special_card.certificates_img|default=''}"/></span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+
+                <!--
+                    作者：offline
+                    时间：2018-05-29
+                    描述：3
+                -->
+                <div class="looknew_items">
+                    <!--放开set-->
+                    <p class="looknew"><i class="see_num">3</i>配送信息 <span class="see_take">收起<i><img
+                            src="__AIMG__/Take.png"/></i></span></p>
+                    <div class="looknew_item">
+                        <span class="looknew_font">配送方式：</span>
+                        <span class="looknew_text">
+									<span class="looknew_select">
+								<select disabled="disabled">
+									<option>早餐</option>
+								</select>
+							</span>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">基础配送费：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="12"/>
+							<br/><i class="i_color">配送信息请联系商家确认后填写</i>
+						</span>
+                    </div>
+
+                </div>
+                <!--
+                    作者：offline
+                    时间：2018-05-29
+                    描述：4
+                -->
+                <div class="looknew_items">
+                    <!--放开set-->
+                    <p class="looknew"><i class="see_num">4</i>收款信息 <span class="see_take">收起<i><img
+                            src="__AIMG__/Take.png"/></i></span></p>
+                    <div class="looknew_item">
+                        <span class="looknew_font">账户类型：</span>
+                        <span class="looknew_text">
+                            <div class="zhiz_time">
+                                <span class="radio">
+                                    <input id="item1_01" type="radio" name="item2" class="radios" value="对公"
+                                           checked>
+                                    <label for="item1_01"></label>
+                                    <span>对公</span>
+                                </span>
+                                <span class="radio">
+                                    <input id="item1_02" type="radio" name="item2" value="对私" class="radios">
+                                    <label for="item1_02"></label>
+                                    <span>对私</span>
+                                </span>
+
+                            </div>
+
+                        </span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">开户人姓名：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$bank_info.name|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">银行卡号：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$bank_info.card|default=''}"/>
+						</span>
+                    </div>
+                    <div class="looknew_item">
+                        <span class="looknew_font">开户行：</span>
+                        <span class="looknew_text">
+							<input type="text" readonly="readonly" value="{$bank_info.opening_bank|default=''}"/>
+						</span>
+                    </div>
+
+                </div>
+
+
+                <div class="oauth_sub">
+                    <a href="javascript:;" class="oauthsub">通过审核</a>
+                    <a href="javascript:;" class="oauthsub">审核失败</a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>

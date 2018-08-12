@@ -1,0 +1,1698 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>调度控制台</title>
+    <link rel="stylesheet" href="/public/static/rider/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/public/static/rider/js/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/public/static/rider/css/common.css" />
+    <link rel="stylesheet" href="/public/static/rider/css/consol.css"/>
+</head>
+
+<body>
+<div  class="container global-body">
+    <div class="global-body">
+        <div class=" global-head navbar navbar-default" style="padding-left: 0px;">
+            <ol>
+                <li>
+                    <select style="width: 100%;height: 30px;">
+                        <option>渝中区代理（系统派单）</option>
+                        <option>沙坪坝区区代理（系统派单）</option>
+                        <option>江北区代理（系统派单）</option>
+                    </select>
+                </li>
+                <li class="nav-time">
+                    <img src="/public/static/rider/img/wenti.png" />
+                    <span>05-22</span>
+                </li>
+                <li>
+                    <input type="text" class="form-control" placeholder="商家名称或商家名称序列号">
+                </li>
+                <li>
+                    <input type="text" class="form-control" placeholder="订单号或订单来源名称">
+                </li>
+                <li>
+                    <input type="text" class="form-control" placeholder="骑手姓名或手机号">
+                </li>
+                <li>
+                    <button class="btn btn-danger nav-btn bd_orange bg_orange" data-loading-text="Loading..." type="button">
+                        查询
+                        <img class="select_img" src="/public/static/rider/img/chaxun.png" />
+                    </button>
+                </li>
+                <li class="head-map">
+                    <a href="rider-map.html">
+                        <img src="/public/static/rider/img/map.png" />
+                        <span>骑手地图</span>
+                    </a>
+                </li>
+                <li class="explanation">
+                    <span>说明</span>
+                    <img src="/public/static/rider/img/wenti.png" />
+                </li>
+            </ol>
+        </div>
+
+        <!--骑手列表（左侧）-->
+        <div class="body-left">
+            <div class="container global-body ">
+                <div class="global-head bg_gray" style="padding-left: 20px;border-bottom: 1px solid#ddd;">
+                    <div class="global-nav">
+                        <ul>
+                            <li>
+                                <select id="ronline" style="width: 80px;">
+                                    <option value="1"> 开工({$onlinenum})</option>
+                                    <option value="0">离线（{$outlinenum}）</option>
+                                </select>
+                            </li>
+                            <li>
+                                <input style="width: 100px; height: 25px;" class="form-control" type="text" placeholder="定位骑手" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="global-content" style="margin-top: 0px;padding: 0;">
+                    <table class="table all-rider">
+                        <thead>
+                        <tr class="rider-title">
+                            <td>骑手
+                                <div><img id='rider1' class="rider-img" src="/public/static/rider/img/pxshang.png" /></div>
+                                <div><img id='rider2' style="top: 55%;" class="rider-img" src="/public/static/rider/img/pxxia.png" /></div>
+                                <input id='rider' type="hidden" value="1"/>
+                            </td>
+                            <td>送/总
+                                <input id='num' type="hidden" value="1"/>
+                                <div><img id='num1'class="rider-img" src="/public/static/rider/img/pxshang.png" /></div>
+                                <div><img id='num2' style="top: 55%;" class="rider-img" src="/public/static/rider/img/pxxia.png" /></div>
+                            </td>
+                            <td>距离
+                                <div><img   class="rider-img" src="/public/static/rider/img/pxshang.png" /></div>
+                                <div><img   style="top: 55%;" class="rider-img" src="/public/static/rider/img/pxxia.png" /></div>
+                            </td>
+                            <td>推荐
+                                <div><img class="rider-img" src="/public/static/rider/img/pxshang.png" /></div>
+                                <div><img style="top: 55%;" class="rider-img" src="/public/static/rider/img/pxxia.png" /></div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody class="tb_rider">
+                        {foreach name="$rider" item="r"}
+                        <tr id="show{$r.id}">
+                            <td>{$r.name}</td>
+                            <td>{$r.today_num}/{$r.all_num}</td>
+                            <td>-</td>
+                            <td >-
+                                <div class="dis_order">更改订单</div>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="global-content">
+
+                </div>
+            </div>
+        </div>
+        <!--左侧骑手人员列表信息弹窗-->
+        <div class="rider-order">
+            <div class="order-body">
+                <ul>
+                    <li>
+                        <ul class="order-list order-first">
+                            <li>状态【已用时】</li>
+                            <li>时间</li>
+                            <li>商家名称</li>
+                            <li>送货地址</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="order-list">
+                            <li>已取货【15min】</li>
+                            <li>
+                                <p>15:12</p>
+                                <p>剩余</p>
+                                <p>15min</p>
+                            </li>
+                            <li>
+                                <p>德克萨斯牛肉面</p>
+                                <p>#12</p>
+                                <p>2.1Km</p>
+                            </li>
+                            <li>
+                                <p>重庆医科大学A栋2号楼15楼1号室</p>
+                                <p>￥72.00</p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="order-list">
+                            <li>已取货【15min】</li>
+                            <li>
+                                <p>15:12</p>
+                                <p>剩余</p>
+                                <p>15min</p>
+                            </li>
+                            <li>
+                                <p>德克萨斯牛肉面</p>
+                                <p>#12</p>
+                                <p>2.1Km</p>
+                            </li>
+                            <li>
+                                <p>重庆医科大学A栋2号楼15楼1号室</p>
+                                <p>￥72.00</p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="order-list order-last">
+                            <li><span>【重庆市【渝中区】】</span> <span>程德兴</span></li>
+                            <li>
+										<span>
+											<select class="public-select">
+                                                <option>铜牌骑手</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                            </select>
+										</span>
+										<span>
+											<select class="public-select">
+                                                <option>开工</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                            </select>
+										</span>
+                                <span><a href="#">转单记录</a></span>
+                                <span><a href="#">骑手位置</a> </span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--更改订单弹窗-->
+        <div class="change_order">
+            <div class="change_header">
+                <span style="font-size: 20px;font-weight: 400;">更改订单</span>
+                <span style="color:#CF2D28;margin-left: 10px;font-size: 14px;">请勿频繁更改订单，避免顾客投诉</span>
+            </div>
+            <div class="change_body">
+                <ul>
+                    <li>
+                        <input id="reason1" type="radio" name="reason" value="1"/><label for="reason1">商家没货了</label>
+                    </li>
+                    <li>
+                        <input id="reason2" type="radio" name="reason" value="2"/><label for="reason2">商家出出餐太慢了</label>
+                    </li>
+                    <li>
+                        <input id="reason3" type="radio" name="reason" value="3"/><label for="reason3">原骑手单子太多了，忙不过来</label>
+                    </li>
+                    <li>
+                        <input id="reason4" type="radio" name="reason" value="4"/><label for="reason4">原骑手车子半路没油了，正火速修车</label>
+                    </li>
+                    <li>
+                        <input id="reason5" type="radio" name="reason" value="5"/><label for="reason5">原骑手手机没电了</label>
+                    </li>
+                    <li>
+                        <input id="reason6" type="radio" name="reason" value="6"/><label for="reason6">原骑手出事故</label>
+                    </li>
+                    <li>
+                        <input id="reason7" type="radio" name="reason" value="7"/><label for="reason7">订单异常</label>
+                    </li>
+                    <li>
+                        <input id="reason8" type="radio" name="reason" value="8"/><label for="reason8">原骑手手机花了</label>
+                    </li>
+                    <li>
+                        <input id="reason9" type="radio" name="reason" value="9"/><label for="reason9">原骑手不顺路</label>
+                    </li>
+                    <li><input style="height: 30px;" type="text" class="form-control"/> </li>
+                    <li style="height: 60px;">
+                        确定改派后，改派订单由（张璋长13313135656）该派给（<span style="margin-left: 0px;color: #279DFF;">王南旺15653252222</span>）
+                    </li>
+                    <li>
+								<span class="chenge_btn">
+									<button class="layui-btn layui-btn-sm bg_orange change_close">确定改派</button>
+									<button class="layui-btn layui-btn-sm bg_white f_orange change_close">取消</button>
+								</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--订单（右侧）-->
+        <div class="body-right">
+            <div class="nav navbar nav-right">
+                <ul>
+                    <li>新订单5<br />
+                        <span>超时0</span>
+                    </li>
+                    <li>手动派单0<br />
+                        <span>超时0</span>
+                    </li>
+                    <li>派单未确定<br />
+                        <span>超时0</span>
+                    </li>
+                    <li>待确定退单<br />
+
+                    </li>
+                    <li class="Order_received">已接单24<br />
+                        <span>超时0</span>
+                    </li>
+                    <li>已取货24<br />
+                        <span>超时0</span>
+                    </li>
+                    <li>未完成24<br />
+                        <span>超时0</span>
+                    </li>
+                    <li>已送达1145<br />
+
+                    </li>
+                    <li>已取消5<br />
+
+                    </li>
+                    <li>全部1756<br />
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="table-box">
+                <!--新订单-->
+                <div class="inside-body" style="display: block;">
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--手动派单-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--派单未确定-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--待确定退单-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--已接单-->
+                <div class="inside-body Order_body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--已取货-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--未完成-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--已送达-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--已取消-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--全部-->
+                <div class="inside-body" >
+                    <table class="table  tbody1 table1">
+                        <thead>
+                        <tr>
+                            <td>状态（已用时）</td>
+                            <td>期望时间</td>
+                            <td class="td3">商家姓名</td>
+                            <td class="td3">送货地址</td>
+                            <td>骑手</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody class="insdie-tbody">
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img detailed" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img " src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>未调度（0min)<br />
+                            </td>
+                            <td>17:53<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>德克萨斯牛肉面馆<br />
+                                <span>剩余29min</span>
+                            </td>
+                            <td>思瑞特健身<br />
+                                <span>饮料加冰</span>
+                            </td>
+                            <td>-<br />
+                                <span>...重庆区域代理</span>
+                            </td>
+                            <td>
+                                <a><img class="icon-img" src="/public/static/rider/img/wentis.png" /></a>
+                                <a><img class="icon-img" src="/public/static/rider/img/adress.png" /></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--遮罩层-->
+        <div class="fix publick_display"></div>
+        <!--详细信息弹窗-->
+        <div class="add publick_display ">
+            <div class="global-body">
+                <div class="global-head detail-head">
+                    <!--订单号，商家信息-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h5 style="font-size: 14px;" class="panel-title">
+                                订单号：1445565465415【立即送达】 期望送达：05-15 15:33 配送距离：高德地图步行导航1.2Km
+                                <span class="close-btn">x</span>
+                            </h5>
+                        </div>
+                        <div class="panel-body paddimg-0">
+                            <div class="panel-l">
+                                <h4 style="font-weight: bold;">商家信息</h4>
+                                <div class="text-gourd">
+                                    <p>商家名称：<span>德克萨斯牛肉面馆</span></p>
+                                    <p>商家地址：<span>重庆市渝中区箱子山26号</span></p>
+                                    <p>商家电话：15526261234</p>
+                                </div>
+                            </div>
+                            <div class="panel-r">
+                                <h4 style="font-weight: bold;">顾客信息</h4>
+                                <div class="text-gourd">
+                                    <p>商家地址：<span>重庆市渝中区箱子山26号</span></p>
+                                    <p>商家电话：15526261234</p>
+                                    <p>商家姓名：张璋长（先生）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--订单明细面板-->
+                    <div class="panel panel-default ">
+                        <div class="panel-body">
+                            <h4 class="text-left">订单明细
+                            </h4>
+
+                            <div class="magl_20">
+                                <p>备注信息:无</p>
+                                <table class="table table-bordered even-bg">
+                                    <thead style="font-weight:bold;">
+                                    <tr style="background-color: #FAFAFA;">
+                                        <td>菜品名称</td>
+                                        <td>菜品单价</td>
+                                        <td>菜品数量【单位】</td>
+                                        <td>餐盒单价</td>
+                                        <td>餐盒数量</td>
+                                        <td>合计</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                        <td>4</td>
+                                        <td>5</td>
+                                        <td>6</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>支付信息</p>
+                                <table class="table table-bordered">
+                                    <thead style="font-weight:bold;">
+                                    <tr style="background-color: #FAFAFA;">
+                                        <td style="width: 60%;">1</td>
+                                        <td>1</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>2</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--进度面板-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title progress-title">
+                                <ul>
+                                    <li>骑手名称：-</li>
+                                    <li>骑手电话：-</li>
+                                    <li>区域：重庆市</li>
+                                </ul>
+                            </h3>
+                        </div>
+                        <div class="panel-body progress-head ">
+                            <ul>
+                                <li><img src="/public/static/rider/img/wancheng.png" /><br />顾客付款
+                                    <span>19:02:03</span>
+                                </li>
+                                <li class="plan-time">
+                                    <div>1分15秒</div>
+                                    <div class="box-white"></div>
+                                </li>
+                                <li><img src="/public/static/rider/img/wancheng.png" /><br />商家发单
+                                    <span>19:02:03</span>
+                                </li>
+                                <li class="plan-time">
+                                    <div>1分15秒</div>
+                                    <div class="box-white"></div>
+                                </li>
+                                <li>
+                                    <img src="/public/static/rider/img/time_succ.png" /><br />订单已调度
+                                    <span>19:02:03</span>
+                                </li>
+                                <li class="plan-time">
+                                    <div>1分15秒</div>
+                                    <div class="box-white"></div>
+                                </li>
+                                <li><img src="/public/static/rider/img/time_succ.png" /><br />骑手接单
+                                    <span>19:02:03</span>
+                                </li>
+                                <li class="plan-time">
+                                    <div>1分15秒</div>
+                                    <div class="box-white"></div>
+                                </li>
+                                <li><img src="/public/static/rider/img/time_succ.png" /><br />骑手取货
+                                    <span>19:02:03</span>
+                                </li>
+                                <li class="plan-time">
+                                    <div>1分15秒</div>
+                                    <div class="box-white"></div>
+                                </li>
+                                <li><img src="/public/static/rider/img/time_succ.png" /><br />起收发货
+                                    <span>19:02:03</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--操作流程面板-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                操作流程
+                            </h3>
+                            <div class="magl_20">
+                                <table class="table table-bordered">
+                                    <thead style="font-weight: bold;">
+                                    <tr>
+                                        <td>操作</td>
+                                        <td>内容</td>
+                                        <td>操作人【手机号】</td>
+                                        <td>操作时间</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>用户已下单</td>
+                                        <td>用户下单成功</td>
+                                        <td>谭女士【15526261212】</td>
+                                        <td>06-12 15:26</td>
+                                    </tr>
+                                    <tr>
+                                        <td>用户支付订单</td>
+                                        <td>用户成功支付￥72.00</td>
+                                        <td>谭女士【15526261212】</td>
+                                        <td>06-12 15:26</td>
+                                    </tr>
+                                    <tr>
+                                        <td>商家已接单</td>
+                                        <td>商家已接单</td>
+                                        <td>商家【13313136545】</td>
+                                        <td>06-12 15:17</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+<script src="/public/static/rider/js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="/public/static/rider/js/layui/layui.js"></script>
+<script type="text/javascript" src="/public/static/rider/js/bootstrap.js" ></script>
+<script type="text/javascript" src="/public/static/rider/js/vue.min.js"></script>
+<script type="text/javascript" src="/public/static/rider/js/cent.js"></script>
+<!--<script type="text/javascript"src="..js/main.js"></script>-->
+<script>
+    var riderurl = '{$riderchg}';
+</script>

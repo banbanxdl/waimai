@@ -1,0 +1,516 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>商家首页概况</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="__WEB__/__AJS__/jquery-2.1.0.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="__WEB__/__ACSS__/heard.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/Merchant.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <link rel="stylesheet" href="__WEB__/__ACSS__/animsition.min.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/drop-down.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/common.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/xgzb.css" />
+    <link rel="stylesheet" href="__WEB__/__ACSS__/system.css" />
+</head>
+
+<body>
+
+<div class="index_center">
+    <div class="index_right col-sm-12 col-xs-12 col-md-12 col-lg-12">
+        <!--左边部分-->
+        <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6" id="index_left">
+            <div class="order col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6" id="orders">
+                    <p>今日有效订单</p>
+                    <p class="price">{$TodayOrder.orderCunt}<span>单</span></p>
+                    <p>昨日{$TodayOrder.YesorderCunt}单</p>
+                </div>
+                <span class="shu"></span>
+                <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6" id="orders">
+                    <p>今日订单收入</p>
+                    <p class="price">{$TodayOrder.orderMoney}<span>元</span></p>
+                    <p>昨日{$TodayOrder.YesorderMoney}元</p>
+                </div>
+            </div>
+
+            <div class="news col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                <img src="__WEB__/__AIMG__/new.png" class="img_a" />
+
+                <a href="javascript:;">
+                    <div class="news_foont">
+                        查看全部消息<span>(7)</span><img src="__WEB__/__AIMG__/jianyou.png" />
+                    </div>
+                </a>
+            </div>
+
+            <div class="Statistics col-sm-12 col-xs-12 col-md-12 col-lg-12">
+
+                <p class="statis">
+                    <span class="font">经营数据分析</span>
+                <div class="static_ul">
+                    <ul>
+                        <li><a href="javascript:;">营业统计</a><span>|</span></li>
+                        <li><a href="javascript:;">顾客分析</a><span>|</span></li>
+                        <li><a href="javascript:;">流量统计</a><span>|</span></li>
+                        <li><a href="javascript:;">商品分析</a><span>|</span></li>
+                        <li><a href="javascript:;">商家体检</a></li>
+                    </ul>
+                </div>
+                </p>
+
+                <!--统计内容-->
+                <div class="statis_con">
+                    <p class="statis_name">昨日流量概况</p>
+                    <div class="statis_cen">
+                        <div class="static_itms">
+                            <div class="statis_itme1">
+                                <p>访问顾客</p>
+                                <span>18<i>人</i></span>
+                                <p>较前日：上升1人</p>
+                            </div>
+                            <div class="statis_itme2">
+                                <p>下单顾客</p>
+                                <span>18<i>人</i></span>
+                                <p>较前日：下降1人</p>
+                            </div>
+
+                            <div class="statis_item3">
+                                <img src="__WEB__/__AIMG__/frame.png" />
+                                <div class="item3_rate">
+                                    <span>100.00%</span>
+                                    <p>下单转化率</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statis_center col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                        <div class="center1 col-sm-4 col-xs-4 col-md-4 col-lg-4">
+                            <div class="center_font">昨日下单顾客概览</div>
+                            <div class="New_guest"><span class="new_fang"></span><span class="new_name">新客</span></div>
+                            <div class="newguest"><span class="new_num"><i>1</i>人</span> <span class="new_jiao">较前日：<i>上升1人</i></span></div>
+                            <div class="Old_guest"><span class="new_fang"></span><span class="new_name">老客</span></div>
+                            <div class="oldguest"><span class="new_num"><i>1</i></span> <span class="new_jiao">较前日：<i>上升1人</i></span></div>
+                        </div>
+                        <div class="center2 col-sm-8 col-xs-8 col-md-8 col-lg-8">
+
+                            <div class="data_wrap" style="background: #fff; width: 100%; padding: 10px; overflow: hidden;">
+                                <div class="animsition">
+                                    <div class="xhzb_wrap">
+                                        <div id="main1" class="my_main1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--右边部分-->
+        <div class="col-sm-6 col-xs-6 col-md-6 col-lg-6 shops">
+            <div class="shop">
+                <div class="shop_img"><div class="shop_imgs"><img src="{$ShopData.ShopLogo}"/></div> </div>
+                <div class="shop_name"><p>{$ShopData.ShopName}</p></div>
+                <div class="shop_remark"><span>店铺公告：{$ShopData.ShopNotice}</span></div>
+                <div class="shop_remarks">
+                    <ul>
+                        <li>
+                            <span>{$TodayOrder.orderCunt}</span>
+                            <a href="javascript:;">今日订单<img src="__WEB__/__AIMG__/xiaojian.png"/></a>
+                        </li>
+                        <li>
+                            <span>{$ShopData.preorder}</span>
+                            <a href="javascript:;">到期预约单<img src="__WEB__/__AIMG__/xiaojian.png"/></a>
+                        </li>
+                        <li>
+                            <span>{$ShopData.waitReplyCount}</span>
+                            <a href="javascript:;">待回复差评<img src="__WEB__/__AIMG__/xiaojian.png"/></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--图表部分-->
+            <!--	<div class="shop_chart">
+                    <div class="shop_charts">
+                        <div class="data_wrap" style="background: #fff; width: 100%; padding: 10px; overflow: hidden;">
+                            <div class="animsition">
+                                <div style="background: white; solid #fff; width: 100%; overflow: hidden;">
+                                    <div id="main4" style="height:450px; width: 100%; float: left; border-top: 30px solid #fff;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+
+            <div class="shop_imgli col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img width="100%" height="100%" src="__WEB__/__AIMG__/test1.png" alt=""/>
+            </div>
+
+            <div style="clear: both"></div>
+            <!--环比分析-->
+            <div class="shop_chart">
+                <div class="shop_charts col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="chartitem1_con">
+                        <div class="shop_catitle">
+                            环比分析（近七日）
+                            <a href="javascript:;">查看更多</a>
+                        </div>
+                        <div class="shop_cacontent col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="s_content_le col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding: 0; margin: 0;">
+                                <span class="chart_fonts">营业额<i><b><img width="100%" src="__WEB__/__AIMG__/shang.png"/></b>1.3%</i></span>
+                                <div class="s_chart_f">
+                                    <span class="chart_font1">有效订单<i><b><img  width="100%" src="__WEB__/__AIMG__/shang.png"/></b>1.3%</i></span>
+                                    <span class="chart_font1">无效订单<i><b style="width: 12px;"><img  width="100%" src="__WEB__/__AIMG__/xia.png"/></b>1.3%</i></span>
+                                </div>
+                            </div>
+                            <div class="chartitem1_right col-lg-8 col-md-8 col-sm-8 col-xs-8" style="padding: 0; margin: 0;">
+                                <div id="main" style="height:250px; width: 100%; float: left;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
+<!--<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
+<script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+<script src="__WEB__/__AJS__/select-widget-min.js"></script>
+<script src="__WEB__/__AJS__/jquery.animsition.min.js"></script>
+<script src="https://cdn.bootcss.com/echarts/3.5.3/echarts.min.js"></script>
+<script src="__WEB__/__AJS__/macarons .js"></script>
+<script src="__WEB__/__AJS__/common.js"></script>
+<script src="__WEB__/__AJS__/common.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+
+        $(".ui-select").selectWidget({
+            change       : function (changes) {
+                return changes;
+            },
+            effect       : "slide",
+            keyControl   : true,
+            speed        : 200,
+            scrollHeight : 250
+        });
+
+        //初始化切换
+        $(".animsition").animsition({
+
+            inClass               :   'fade-in-right',
+            outClass              :   'fade-out',
+            inDuration            :    1500,
+            outDuration           :    800,
+            linkElement           :   '.animsition-link',
+            // e.g. linkElement   :   'a:not([target="_blank"]):not([href^=#])'
+            loading               :    true,
+            loadingParentElement  :   'body', //animsition wrapper element
+            loadingClass          :   'animsition-loading',
+            unSupportCss          : [ 'animation-duration',
+                '-webkit-animation-duration',
+                '-o-animation-duration'
+            ],
+            //"unSupportCss" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+            //The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+
+            overlay               :   false,
+
+            overlayClass          :   'animsition-overlay-slide',
+            overlayParentElement  :   'body'
+        });
+
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar',
+                'echarts/chart/line',
+                'echarts/chart/k',
+                'echarts/chart/pie'// 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main1'),'macarons');
+                var axisData = [
+                    "0", "2", "4", "6", "8",
+                    "10", "12", "14", "16", "18",
+                    "20", "22"
+                ];
+
+
+                function GetData(){
+                    var myData =  ["2", "11", "0", "13", "7", "4", "3", "13", "13"," 14", "10", "3"];
+//							for( var i = 0; i < axisData.length; i++ ){
+//
+//								myData.push( Math.round(Math.random() * 15) );
+//							};
+                    //console.log(myData )
+                    return myData;
+
+                };
+
+//						function GetDataHg(){
+//							var myData = [];
+//							for( var i = 0; i < axisData.length; i++ ){
+//								myData.push( Math.round(Math.random() * 100) );
+//							};
+//							return myData;
+//						};
+
+                var option = {
+                    backgroundColor : "white",
+                    color : ['#fa6161'],
+                    title : {
+                        x : '80',
+                        y : '0',
+                        text: '昨日访问趋势',
+                        textStyle : {
+                            fontSize : 16,
+                            color:"#333333"
+                        }
+                    },
+                    tooltip : {
+                        trigger: 'axis',
+                        showDelay: 0,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+
+                    },
+//							dataZoom : {
+//								show : true,
+//								realtime: true,
+//								handleSize : 2,
+//								y : 220,
+//								height: 0,
+//								start : 0,
+//								end : 100
+//							},
+//							calculable : true,
+//							grid: {
+//								x: 80,
+//								y: 40,
+//								x2:60,
+//							},
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : true,
+                            data : axisData
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            scale:true
+
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'上升',
+                            type:'line',
+                            //itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:GetData(),
+                            symbol:'none'//去掉里面小圆点
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+
+
+                //第二个图表
+
+                var echartsPie= echarts.init(document.getElementById('main'))
+                var json = [
+                    {value:11,name:'早上'},
+                    {value:61,name:'中午'},
+                    {value:28,name:'晚上'}
+                ];
+                var option = {
+
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} %"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : '-5px',
+                        y:'50px',
+                        data:['早上','中午','晚上']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+//                  mark : {show: true},
+//                  dataView : {show: true, readOnly: false},
+                            magicType : {
+                                show: true,
+//                      type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        x: '0px',
+                                        width: '50%',
+                                        funnelAlign: 'left',
+                                        max: 1548
+                                    }
+                                }
+                            },
+//                  restore : {show: true},
+//                  saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'营业额',
+                            type:'pie',
+                            radius : '55%',//饼图的半径大小
+                            center: ['60%', '40%'],//饼图的位置
+                            data:json
+                        }
+                    ]  ,
+
+                    color: ['#ffa200','#f11ab7','#63bcff','rgb(200,200,169)','rgb(131,175,155)'],
+                };
+
+                echartsPie.setOption(option);
+
+
+
+
+
+                setTimeout(function (){
+                    window.onresize = function () {
+                        myChart.resize();
+                    }
+                },200)
+
+
+            }
+        );
+//				$(window).on('scroll',function () {
+//					$('.echarts-tooltip').hide();
+//				})
+
+        //关闭提示
+//				$('.xsfx_tips  i').on('click',function(){
+//					$(this).parent().slideUp();
+//				})
+
+        /*
+           //第二个图表
+                var myChart4 = echarts.init(document.getElementById('main4'),'macarons');
+                // 指定图表的配置项和数据
+            var date = ['周一','周二','周三','周四','周五','周六','周日'];
+
+                function my_datas(){
+                var data = [];
+                for( var i =0; i<30; i++){
+
+                    data.push(Math.round(Math.random() * 100));
+                };
+                return data;
+            }
+
+              var option4 = {
+                tooltip: {
+                    trigger: 'axis',
+                },
+                title : {
+                            x : '80',
+                            y : '0',
+                            text: '统计一',
+                            textStyle : {
+                                fontSize : 16,
+                                color:"#333333"
+                            }
+                        },
+
+        //				    toolbox: {
+        //				        show : true,
+        //				         feature : {
+        //				            mark : {show: true},
+        //				            dataView : {show: true, readOnly: false},//数据视图
+        //				            magicType : {show: true, type: ['line', 'bar', 'tiled']},// line:折线图    bar:柱状  stack：堆叠   tiled:平铺
+        //				            restore : {show: true},//还原
+        //				            saveAsImage : {show: true}//保存为图片
+        //				        }
+        //				    },
+                legend: {
+                    data:['属性一','属性二','属性三']
+                },
+                calculable : true,
+                xAxis: {
+                    type : 'category',
+                    boundaryGap : false,
+                    data : date
+                },
+                yAxis: {
+                    type: 'value',
+                    boundaryGap: [0, '100%']
+                },
+                dataZoom: [{
+                    type: 'inside',
+                    start: 0,
+                    end: 100
+                }],
+                series: [
+                    {
+                        name:'属性一',
+                        type:'line',
+                        smooth:false,
+                        stack: '总量',
+                        itemStyle: {normal: {areaStyle: {type: 'default',color:"#5293ff"}}},
+                        data:my_datas(),
+                         symbol:'none'//去掉里面小圆点
+                    },
+                    {
+                        name:'属性二',
+                        type:'line',
+                        stack: '总量',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default',color:"#ffb533"}}},
+                        data:my_datas(),
+                         symbol:'none'//去掉里面小圆点
+                    },
+                    {
+                        name:'属性三',
+                        type:'line',
+                        stack: '总量',
+                        smooth:true,
+                        itemStyle: {normal: {areaStyle: {type: 'default',color:"#e952ff"}}},
+                        data:my_datas(),
+                         symbol:'none'//去掉里面小圆点
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart4.setOption(option4);
+                */
+    });
+</script>

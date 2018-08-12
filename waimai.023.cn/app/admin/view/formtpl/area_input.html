@@ -1,0 +1,7 @@
+
+<input type="text" class="input-text" value="{:isset($data[$val.field])?$data[$val.field]:''}"
+       placeholder="{$val.hint}" id="{$val.field}" name="{$val.field}">
+<input type="button" id="button_area_input" class="btn btn-default"
+       onclick="area_open('{$val.field}','{$area_open[$val.field]}')" value="搜索"/>
+<div class="skin-minimal" id="area_box_input">
+</div>

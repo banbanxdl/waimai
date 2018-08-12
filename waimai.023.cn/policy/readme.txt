@@ -1,0 +1,1 @@
+此文件夹用于aliyun APP直传OSS返回授权码给app权限配置

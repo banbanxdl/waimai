@@ -1,0 +1,109 @@
+<div class="index_items" id="accordion">
+    <div class="item_close"><img src="__AIMG__/display.png" /></div>
+    <!--商家首页-->
+    {foreach name = "auth_admin_menu" item = "va" key="k"}
+    <div class="index_item index_ite1 panel">
+        {if condition = "isset($va['son'])"}
+        <a data-toggle="collapse" data-parent="#accordion" href="#collaps{$k}" class="collapsed">
+            <i class="Hui-iconfont Hui-iconfont-{$va.but_ico}"></i> {$va.title}
+        </a>
+        {else /}
+        <a  data-href="{:url($va.name)}" class="noChild collapsed">
+            <i class="Hui-iconfont Hui-iconfont-{$va.but_ico}"></i> {$va.title}
+        </a>
+        {/if}
+
+        <div class="item_con collapse" id="collaps{$k}">
+            {if condition = "isset($va['son'])"}
+            {foreach name = "$va['son']" item = "con"}
+            <a data-href="{:url($con.name)}" data-title="{$con.title}" href="javascript:void(0)">{$con.title}</a>
+            {/foreach}
+            {else /}
+
+            {/if}
+        </div>
+    </div>
+    {/foreach}
+
+    <!--<div class="index_item index_ite1 panel">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" hr   ef="#collaps1" class="collapsed">-->
+            <!--<img src="__AIMG__/renyuan.png"/> 外卖-->
+        <!--</a>-->
+
+        <!--<div class="item_con collapse" id="collaps1">-->
+            <!--<a data-href="{:url('shop/index')}">店铺管理</a>-->
+            <!--<a data-href="{:url('order/index')}">订单管理</a>-->
+            <!--<a>商家审核</a>-->
+            <!--<a>外卖管理</a>-->
+            <!--<a>配送中心</a>-->
+            <!--<a>外卖活动</a>-->
+            <!--<a>跑腿管理</a>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <!--&lt;!&ndash;订单管理&ndash;&gt;-->
+    <!--<div class="index_item index_ite2 panel">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collaps2" class="collapsed">-->
+            <!--<img src="__AIMG__/tiaodu.png" /> 用户-->
+        <!--</a>-->
+
+        <!--<div class="item_con collapse" id="collaps2">-->
+            <!--<a>进行中</a>-->
+            <!--<a>已完成</a>-->
+            <!--<a>已取消</a>-->
+            <!--<a>历史订单</a>-->
+        <!--</div>-->
+
+    <!--</div>-->
+    <!--&lt;!&ndash;商品管理&ndash;&gt;-->
+    <!--<div class="index_item index_ite3 panel">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collaps3" class="collapsed" id="fd">-->
+            <!--<img src="__AIMG__/shuju.png" /> 财务-->
+        <!--</a>-->
+
+        <!--<div class="item_con collapse" id="collaps3">-->
+            <!--<a>概况</a>-->
+            <!--<a>商品管理</a>-->
+            <!--<a>账户余额</a>-->
+            <!--<a>门店管理</a>-->
+        <!--</div>-->
+
+    <!--</div>-->
+    <!--&lt;!&ndash;经营分析&ndash;&gt;-->
+    <!--<div class="index_item index_ite4 panel">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collaps4" class="collapsed" >-->
+            <!--<img src="__AIMG__/zhil.png" /> 运营-->
+        <!--</a>-->
+
+        <!--<div class="item_con collapse" id="collaps4">-->
+        <!--</div>-->
+
+    <!--</div>-->
+    <!--&lt;!&ndash;营销活动&ndash;&gt;-->
+    <!--<div class="index_item index_ite5 panel">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collaps5" class="collapsed">-->
+            <!--<img src="__AIMG__/shezhi.png" /> 设置-->
+        <!--</a>-->
+
+        <!--<div class="item_con collapse" id="collaps5">-->
+            <!--<a>概况</a>-->
+            <!--<a>商品管理</a>-->
+            <!--<a>账户余额</a>-->
+            <!--<a>门店管理</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash; 权限设置 &ndash;&gt;-->
+    <!--<div class="index_item index_ite6 panel">-->
+        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collaps6" class="collapsed">-->
+            <!--<img src="__AIMG__/quan.png" /> 权限-->
+        <!--</a>-->
+
+        <!--<div class="item_con collapse" id="collaps6">-->
+            <!--<a data-href="{:url('admin/AdminMenu/index')}">菜单列表</a>-->
+            <!--<a data-href="{:url('admin/AuthGroup/index')}">用户组管理</a>-->
+            <!--<a data-href="{:url('admin/AuthRule/index')}">规则管理</a>-->
+            <!--<a data-href="{:url('admin/AuthAdmin/index')}">管理员列表</a>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>

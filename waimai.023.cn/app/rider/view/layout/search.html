@@ -1,0 +1,49 @@
+<div class="total_serach">
+    <form action="{$index_url|default=''}" method="get" enctype="multipart/form-data">
+        <span id="province"></span>
+        {if condition="isset($search_time)"}
+        <span>
+        日期范围：
+        <input type="text" name="start_time" id="countTimestart" onfocus="selecttime(1)" value="{$start_time ?? ''}"
+               size="17" class="input-text Wdate" style="width:120px;height: 30px;outline: none;border: 1px solid #EBEBEB;" readonly>-
+        <input type="text" name="end_time" id="countTimeend" onfocus="selecttime(2)" value="{$end_time ?? ''}"
+               size="17" class="input-text Wdate" style="width:120px;height: 30px;outline: none;border: 1px solid #EBEBEB;" readonly>
+        </span>
+        {/if}
+
+        {if condition="isset($search_field_true)"}
+        <span class="id_span">
+        <input type="text" name="search_name" placeholder="搜索内容" value="{$search_name ?? ''}">
+        </span>
+        {/if}
+
+        {if condition="isset($type_select)"}
+        {volist name="$type_select" id="value"}
+        <span class="bad_all">
+        <select name="{$key}">
+            <option value="">全部分类</option>
+            {foreach name="value" item="val" key="k"}
+
+            {php}if ($select_name["$key"] == $val["id"] && $select_name["$key"] !== "" && $select_name["$key"] !== null){{/php}
+            <option value="{$val.id}" selected="selected">{$val.title}</option>
+            {php}}else{{/php}
+            <option value="{$val.id}">{$val.title}</option>
+            {php}}{/php}
+            {/foreach}
+        </select>
+        </span>
+        {/volist}
+        {/if}
+
+        {if condition="isset($search_true)"}
+        <span class="bad_search">
+            <a href="javascript:;">
+            <input type="submit" value="搜索" style="font-size: 14px;
+color: white;background: #F18B1A;border-top-width: 0px;
+border-right-width: 0px;border-left-width: 0px;
+border-bottom-width: 0px;"/><img src="__AIMG__/chaxun.png"/>
+            </a>
+        </span>
+        {/if}
+    </form>
+</div>
